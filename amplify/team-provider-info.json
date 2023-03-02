@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-portaldatamesh-dev-93152-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211544418920:role/amplify-portaldatamesh-dev-93152-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211544418920:role/amplify-portaldatamesh-dev-93152-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-portaldatamesh-dev-93152-deployment",
+      "UnauthRoleName": "amplify-portaldatamesh-dev-93152-unauthRole",
+      "StackName": "amplify-portaldatamesh-dev-93152",
+      "StackId": "arn:aws:cloudformation:us-west-2:211544418920:stack/amplify-portaldatamesh-dev-93152/1aace740-b8af-11ed-99e7-06332e0a879f",
+      "AmplifyAppId": "d14hapm7bs2dgj"
+    },
+    "categories": {
+      "auth": {
+        "portaldatamesh726fdddb": {}
+      }
+    }
+  }
+}
