@@ -80,7 +80,7 @@ export function getPathSameStatus(){
   return isPathSame
 }
 
-const ResponsiveAppBar = (props) => {
+const ResponsiveAppBar = () => {
 
   //const pages = ['Data Products', 'Publish', 'Consume','Search','Learn'];
 const pages = [
@@ -95,7 +95,6 @@ const currentPath = () => {
   let path = location.pathname;
   if (path === "/") return -1;
   //else if (path === "/dpgrid") return 0;
-  
   else if (path === "/dataproducts") return 0;
   else if (path === "/dppublish") return 1;
   else if (path === "/dpplatformservices") return 2;
@@ -132,7 +131,6 @@ const logout = () =>{
   if (authStatus === 'authenticated') {
     //console.log("logout")
     signOut();
-    props.setLUserName("");
     navigate("/",false)
   }else{
     //console.log("login")
@@ -142,15 +140,11 @@ const logout = () =>{
 }
   //const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-  const settingsSignedin = [
+  const settings = [
     { NameStr:'Profile', Handler:displayProfile},
     { NameStr:'Account',  Handler:displayAccount},
     { NameStr:'Dashboard', Handler:displayDashboard},
     { NameStr:'Logout', Handler:logout}
-  ];
-  const settingsNotSignedin = [
-    { NameStr:'SignIn', Handler:logout},
-    { NameStr:'SignUp',  Handler:logout}
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -180,9 +174,7 @@ const logout = () =>{
 
   const { user } = useAuthenticator((context) => [context.user]);
   useEffect(() => {
-    console.log(user)
-    if(user !== undefined)
-      props.setLUserName(user["attributes"]["email"])
+    //console.log(user)
   }, [user]);
   
   return (
@@ -191,17 +183,16 @@ const logout = () =>{
         <Toolbar disableGutters sx={{maxHeight:56,m:-1,color:'rgb(26, 26, 26)'}}>
           {/*<AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />*/}
           <img src={logo} alt="Triadh logo!" sx={{ display: { xs: 'none', md: 'flex' }, mr: 1,height:24,width:24 }} />
-          
           <Typography
               variant="h6"
               noWrap
               component="a"
-              href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'flex', md: 'none' },
+                flexGrow: 1,
                 fontFamily: 'Arial',
-                fontSize:'18px',
+                fontSize:'16px',
                 fontWeight: 'bold',
                 letterSpacing: '.1rem',
                 color: 'inherit',
@@ -209,33 +200,10 @@ const logout = () =>{
                 marginLeft:'10px'
               }}
           >
-            HOME 
-          </Typography>
-          <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Arial',
-                fontSize:'24px',
-                fontWeight: 'bold',
-                letterSpacing: '.1rem',
-                color: '#37ABC8',
-                textDecoration: 'none',
-                marginLeft:'10px'
-              }}
-          >
-            |
+            HOME
           </Typography>
           
-          {/*<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />*/}
-          
-
-          
-          {user !== undefined?<><Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',paddingLeft:'10px' } }}>
+          {user !== undefined?<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',paddingLeft:'10px' } }}>
             {pages.map((page,index) => (
               <Button component={Link} to={page.Path} replace={false}
                 key={index}
@@ -248,8 +216,33 @@ const logout = () =>{
                 {page.NameStr}
               </Button>
             ))}
-          </Box>
-         
+          </Box>:<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex',paddingLeft:'10px' } }}>
+            {pages.map((page,index) => (
+              <Button component={Link} to={page.Path} replace={false}
+                key={index}
+                onClick={()=>handleCloseNavMenu(index)}
+                sx={{ my: 2, color:'black', display: 'block',fontSize:'15px',fontWeight:"bold",paddingTop:'2px',paddingBottom:'0px',
+                      marginLeft:'5px',marginRight:'5px',
+                      ...(index === activeMenu && {borderBottom:' 5px #37ABC8 solid', borderRadius:'0px'}),
+                            ":hover":{backgroundColor:'#37ABC8',color:'white', borderRadius:'2px'} }}
+              >
+                
+              </Button>
+            ))}
+          </Box>}
+          {/*
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon/>
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </Search>
+          */}
+          {
+            user !== undefined &&
             <Typography
                 variant="h6"
                 noWrap
@@ -261,14 +254,14 @@ const logout = () =>{
                   fontSize:'14px',
                   fontWeight: 'bold',
                   letterSpacing: '.05rem',
-                  color: '#37ABC8',
+                  color: 'gray',
                   textDecoration: 'none',
                   marginLeft:'10px'
                 }}
             >
               {user["attributes"]["email"]}
             </Typography>
-         
+          }
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -294,7 +287,7 @@ const logout = () =>{
               onClose={handleCloseUserMenu}
             >
               {
-                settingsSignedin.map((setting,index) => {
+                settings.map((setting,index) => {
                   
                   if (index !== 3)  {
                     return(
@@ -304,7 +297,6 @@ const logout = () =>{
                     );
                   } else {
                     if (authStatus === 'authenticated') {
-                      props.setLUserName(user["attributes"]["email"]);
                       return(
                         <MenuItem key={setting.NameStr} onClick={() => handleCloseUserMenu(setting.Handler)}>
                           <Typography textAlign="center">Logout</Typography>
@@ -324,78 +316,6 @@ const logout = () =>{
               }
             </Menu>
           </Box>
-          </>:<Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ bgcolor:'transparent' }}>
-                  <AccountCircleOutlinedIcon sx={{color:"#37ABC8",width: 36, height: 36 }}/>
-            </Avatar>
-             <Typography
-                variant="h6"
-                noWrap
-                component="a"
-                sx={{
-                  mr: 2,
-                  display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Arial',
-                fontSize:'18px',
-                fontWeight: 'bold',
-                letterSpacing: '.1rem',
-                  color: '#37ABC8',
-                  textDecoration: 'none',
-                  marginRight:'10px'
-                }}
-            >
-              Sign In
-            </Typography>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {
-                settingsNotSignedin.map((setting,index) => {
-                  
-                  if (index !== 3)  {
-                    return(
-                        <MenuItem key={setting.NameStr} onClick={() => handleCloseUserMenu(setting.Handler)}>
-                          <Typography textAlign="center">{setting.NameStr}</Typography>
-                        </MenuItem>
-                    );
-                  } else {
-                    if (authStatus === 'authenticated') {
-                      return(
-                        <MenuItem key={setting.NameStr} onClick={() => handleCloseUserMenu(setting.Handler)}>
-                          <Typography textAlign="center">Logout</Typography>
-                        </MenuItem>
-                      );
-                    } else {
-                      return(
-                        <MenuItem key={setting.NameStr} onClick={() => handleCloseUserMenu(setting.Handler)}>
-                          <Typography textAlign="center">Login</Typography>
-                        </MenuItem>
-                      );
-                    }
-                  }
-
-                }
-                )
-              }
-            </Menu>
-          </Box>}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,4 +1,6 @@
 import './App.css';
+import React from 'react';
+import { useState } from 'react';
 import { BrowserRouter , Routes, Route } from "react-router-dom";
 import RequireAuth from './Components/RequireAuth'
 import LandingPage from './LandingPage'
@@ -8,16 +10,27 @@ import ResponsiveAppBar from "./Components/NavAppBar"
 import DPPublish from './Components/DPPublish';
 import DPGovernance from './Components/DPGovernance';
 import DPPlatformServices from './Components/DPPlatformServices';
-import DataProducts from './Components/DataProducts'
+import DataProducts from './Components/DataProducts';
+import Home from './Components/home'
 
 function App() {
+  const [userName, setUserName] = useState("");
+  const setLUserName = (value) => {
+    console.log("set LUserName name called")
+    setUserName(value);
+  };
   return (
     <div className="App">
         <Authenticator.Provider>
             <BrowserRouter>
-            <ResponsiveAppBar/>
+            <ResponsiveAppBar setLUserName={setLUserName} />
               <Routes>
+                {userName?
+                
+                <Route path="/" element={<Home userName={userName}/>} />:  
                 <Route path="/" element={<LandingPage />} />
+                }
+               
                 <Route path="/dataproducts" element={
                     <RequireAuth>
                       <DataProducts/>

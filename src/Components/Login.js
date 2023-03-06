@@ -1,11 +1,16 @@
 // components/Login.js
 import { useEffect } from "react";
-
+import lpimage2 from "../resources/login.png"
+import "../App.css"
 import { Authenticator, useAuthenticator, View } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import { useNavigate, useLocation } from 'react-router';
-
+const Footer = () => (
+	<footer className="footer1">
+	  <p className="text">'innovate, invent, transform'</p>
+	</footer>
+  );
 export default function Login() {
   const { route } = useAuthenticator((context) => [context.route]);
   const location = useLocation();
@@ -18,9 +23,20 @@ export default function Login() {
   }, [route, navigate, from]);
   return (
     <>
-      <View className="auth-wrapper">
-        <Authenticator ></Authenticator>
-      </View>
+      
+      <div className="loginpage">
+			
+			<div className="loginpageimage">
+				<img className="img" src={lpimage2} alt="data search" />
+			</div>
+      <div className="loginpagetext">
+	  <View className="auth-wrapper">
+		<Authenticator></Authenticator>
+	  </View>
+			</div>
+			<Footer/>
+		</div>
+     
     </>
   );
 }

@@ -24,8 +24,8 @@ body{
   margin-bottom: 0px;
   margin-left: 0px;
   margin-right: 0px;
-  background-color: #37ABC8;
-  color: lightcyan;
+  background-color: white;
+  color: rgb(40, 40, 40);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,11 +40,8 @@ body{
  .landingpageimage{
   width: 50%;
   height: 100%;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  background-color: gray;
+  padding: 80px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,6 +51,107 @@ body{
   height: 100%;
   object-fit: cover;
  }
+ 
+ /* 48 for app bar height and 20 for footer */
+.homepage{
+  height: calc(100vh - 48px - 20px); 
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+ }
+.homepagetext{
+  width: 50%;
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: white;
+  color: rgb(40, 40, 40);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  font-weight: normal;
+  text-align: left;
+  padding-left: 75px;
+  padding-right: 75px;
+ }
+ .homepageimage{
+  width: 50%;
+  height: 100%;
+  padding: 80px;
+  padding-bottom: 0%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ .homepageimage .img{
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+ }
+ /*LOGIN*/
+ /* 48 for app bar height and 20 for footer */
+.loginpage{
+  height: calc(100vh - 48px - 20px); 
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+ }
+.loginpagetext{
+  width: 50%;
+  height: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: white;
+  color: rgb(40, 40, 40);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  font-weight: normal;
+  text-align: left;
+  padding-left: 75px;
+  padding-right: 75px;
+ }
+ .loginpageimage{
+  width: 50%;
+  height: 100%;
+  padding: 80px;
+  padding-bottom: 0%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+ .loginpageimage .img{
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+ }
+ /* Login End*/
+
+ .amplify-button[data-variation=primary] {
+  border-width: var(--amplify-components-button-primary-border-width);
+  background-color: #37ABC8;
+  color: var(--amplify-components-button-primary-color);
+}
+.amplify-tabs-item[data-state=active] {
+  color:#37ABC8;
+  border-color: #37ABC8;
+  background-color: var(--amplify-components-tabs-item-active-background-color);
+  transition-property: none;
+}
  .footer1 {
   flex-shrink: 0;
   text-align: center;
