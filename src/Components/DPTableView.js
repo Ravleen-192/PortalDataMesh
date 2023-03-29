@@ -46,7 +46,7 @@ const DPPreviewView = (props) => {
           <TableRow>
             <TableCell
               align={"left"}
-              style={{ fontWeight:'bold',backgroundColor:'#37ABC8',padding:'5px' }}>{props["columnName"]}
+              style={{ fontWeight:'bold',backgroundColor:'#0D9F98',padding:'5px' }}>{props["columnName"]}
             </TableCell>
           </TableRow>
         </TableHead>
@@ -118,8 +118,8 @@ const DPLineageView = (props) => {
           <LineageBox box={box0} />
           <LineageBox box={box1} />
           <LineageBox box={box2} />
-          <Xarrow start={box0.id} end={box1.ref} headSize={3} color={'#37ABC8'}/>                
-          <Xarrow start={box1.ref} end={box2.ref} headSize={3} color={'#37ABC8'}/>                
+          <Xarrow start={box0.id} end={box1.ref} headSize={3} color={'#0D9F98'}/>                
+          <Xarrow start={box1.ref} end={box2.ref} headSize={3} color={'#0D9F98'}/>                
         </div>
       </div>
     </React.Fragment>
@@ -236,7 +236,7 @@ const DPTableView = (props) => {
                     <TableCell 
                         key={column}
                         align={"left"}
-                        style={{ fontWeight:'bold',backgroundColor:'#37ABC8',padding:'5px' }}
+                        style={{ fontWeight:'bold',backgroundColor:'#0D9F98',padding:'5px' }}
                         >
                         {column}
                     </TableCell>

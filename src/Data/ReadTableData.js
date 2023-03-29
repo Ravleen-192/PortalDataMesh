@@ -173,7 +173,17 @@ const DPCategories = [
       "Subtypes":[{"Subtype":"Partner data","Icon":ChurnImg}]
       }
     ],
+  }, {
+    "Archetype": "Network Assurance",
+    "children": [
+      {
+        "id":18,
+        "Archetype":"Network Assurance",
+      "Subtypes":[{"Subtype":"Network Availablity","Icon":BroadbandAdoptionImg}]
+      }
+    ],
   }
+ 
  
 ]
 const DPCategoriesold = [

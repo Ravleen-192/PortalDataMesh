@@ -1,4 +1,4 @@
-import '../App.css';
+import '../Stylecss.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit'
@@ -96,7 +96,7 @@ const DPView = (props) => {
           <Box className="title">{dpData["Product Name"]}</Box>
           { showCloseButton &&(
               <IconButton className='dppropscloseicon' size="small" 
-                                  sx={{marginRight:'5px',marginTop:'1px',backgroundColor:'rgb(226, 222, 222)',color:'rgb(25,118,210)'}}
+                                  sx={{marginRight:'5px',marginTop:'1px',backgroundColor:'#0D9F98',color:'rgb(25,118,210)'}}
                                   onClick={() => {setActiveDPId(-1)
                                                   
                                                   }}>

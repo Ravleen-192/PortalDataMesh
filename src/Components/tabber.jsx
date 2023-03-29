@@ -78,33 +78,33 @@ export default function BasicTabs() {
           aria-label="icon label tabs example"
         >
           <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<SecurityIcon />}
             label="Security"
           />
           <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<VerifiedUserIcon />}
             label="Privacy"
           />
           <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<FingerprintTwoToneIcon />}
             label="Authentication and Access"
           />
 
           <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<CreditCardOffTwoToneIcon />}
             label="PII Compliance"
           />
            <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<LayersTwoToneIcon />}
             label="Data Semantics"
           />
           <Tab
-            sx={{ width: "150px", color: "#87def4" }}
+            sx={{ width: "150px", color: '#0D9F98' }}
             icon={<BarChartTwoToneIcon />}
             label="Metrix"
           />

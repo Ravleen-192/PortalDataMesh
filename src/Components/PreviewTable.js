@@ -46,7 +46,7 @@ const PreviewTable = (props) =>{
                   <TableCell 
                         key={column[0]}
                         align={"left"}
-                        style={{ fontWeight:'bold',backgroundColor:'#37ABC8',paddingTop:'8px',paddingBottom:'8px', whiteSpace: 'nowrap',borderRight: "1px solid lightgray" }}
+                        style={{ fontWeight:'bold',backgroundColor:'#0D9F98',paddingTop:'8px',paddingBottom:'8px', whiteSpace: 'nowrap',borderRight: "1px solid lightgray" }}
                   >
                     {column[0]}
                   </TableCell>

@@ -1,0 +1,229 @@
+{
+        "Product Owner": "Velayudham Muruegsan",    
+        "Owner Email": "askvelu@gmail.com",
+        "Creation Date": "2022-09-15",
+        "Last Update Date": "2022-09-15",
+        "Product Name": "Customer care calls analysis ",
+        "Product Description" : "This contains the data for analysing call center effectiveness. Contains information about number of calls received, total duration, average duration, unattended calls etc.",
+        "Contains PII": false,
+        "Encrypted": false,
+        "Storage": "AWS S3",
+        "Source Type": "CSV",
+        "Link": "arn:aws:s3:::callcenter",
+        "User Name": "Vels",
+        "Password": "password",
+        "LinkRefCode": "https://github.com/TriadhAI/portaltodata",
+        "LinkReadme":"https://github.com/TriadhAI/portaltodata/blob/master/README.md",
+        "quality":"90%",
+        "VersionId": "1",
+        "Archetype":"Customer Service",
+        "Subtype":"Call Center Usage",
+        "QuickSightDashboardId":"",
+        "Tables":[
+          {
+             "Name": "Call durations",
+             "Columns": [
+                {
+                   "Name": "Index",
+                   "Type": "integer",
+                   "Comment": "Index"
+                },
+                {
+                   "Name": "Incoming Calls",
+                   "Type": "integer",
+                   "Comment": "Number of incoming calls"
+                },
+                {
+                   "Name": "Answered Calls",
+                   "Type": "integer",
+                   "Comment": "Number of answered calls"
+                },
+                {
+                   "Name": "Answer Rate",
+                   "Type": "text",
+                   "Comment": "Answer rate"
+                },
+                {
+                   "Name": "Abandoned Calls",
+                   "Type": "int",
+                   "Comment": "Number of abandoned calls"
+                },
+                {
+                   "Name": "Answer Speed (AVG)",
+                   "Type": "text",
+                   "Comment": "Answer speed in hh::mm::ss"
+                },
+                {
+                   "Name": "Talk Duration (AVG)",
+                   "Type": "text",
+                   "Comment": "Talk duration in hh::mm::ss"
+                },
+                {
+                   "Name": "Waiting Time (AVG)",
+                   "Type": "text",
+                   "Comment": "Customer wait time in hh::mm::ss"
+                },
+                {
+                   "Name": "Service Level (20 Seconds)",
+                   "Type": "text",
+                   "Comment": "Service level matching"
+                }
+             ],
+             "Preview": {
+                "Index": [
+                   "1",
+                   "2",
+                   "3",
+                   "4",
+                   "5",
+                   "6",
+                   "7",
+                   "8",
+                   "9",
+                   "10",
+                   "11",
+                   "12",
+                   "13",
+                   "14",
+                   "15"
+                ],
+                "Incoming Calls": [
+                   "217",
+                   "200",
+                   "216",
+                   "155",
+                   "37",
+                   "315",
+                   "252",
+                   "213",
+                   "219",
+                   "371",
+                   "166",
+                   "32",
+                   "231",
+                   "205",
+                   "338"
+                ],
+                "Answered Calls": [
+                   "204",
+                   "182",
+                   "198",
+                   "145",
+                   "37",
+                   "304",
+                   "244",
+                   "205",
+                   "200",
+                   "348",
+                   "164",
+                   "32",
+                   "222",
+                   "197",
+                   "313"
+                ],
+                "Answer Rate": [
+                   "94.01%",
+                   "91.00%",
+                   "91.67%",
+                   "93.55%",
+                   "100.00%",
+                   "96.51%",
+                   "96.83%",
+                   "96.24%",
+                   "91.32%",
+                   "93.80%",
+                   "98.80%",
+                   "100.00%",
+                   "96.10%",
+                   "96.10%",
+                   "92.60%"
+                ],
+                "Abandoned Calls": [
+                   "13",
+                   "18",
+                   "18",
+                   "10",
+                   "0",
+                   "11",
+                   "8",
+                   "8",
+                   "19",
+                   "23",
+                   "2",
+                   "0",
+                   "9",
+                   "8",
+                   "25"
+                ],
+                "Answer Speed (AVG)": [
+                   "00:00:17",
+                   "00:00:20",
+                   "00:00:18",
+                   "00:00:15",
+                   "00:00:03",
+                   "00:00:18",
+                   "00:00:13",
+                   "00:00:10",
+                   "00:00:15",
+                   "00:00:19",
+                   "00:00:12",
+                   "00:00:02",
+                   "00:00:08",
+                   "00:00:07",
+                   "00:00:13"
+                ],
+                "Talk Duration (AVG)": [
+                   "00:02:14",
+                   "00:02:22",
+                   "00:02:38",
+                   "00:02:29",
+                   "00:02:06",
+                   "00:01:35",
+                   "00:01:50",
+                   "00:02:10",
+                   "00:02:18",
+                   "00:01:40",
+                   "00:02:10",
+                   "00:02:03",
+                   "00:01:49",
+                   "00:01:52",
+                   "00:01:51"
+                ],
+                "Waiting Time (AVG)": [
+                   "00:02:45",
+                   "00:06:55",
+                   "00:03:50",
+                   "00:03:12",
+                   "00:00:35",
+                   "00:02:37",
+                   "00:02:02",
+                   "00:03:22",
+                   "00:06:12",
+                   "00:03:29",
+                   "00:02:46",
+                   "00:00:03",
+                   "00:02:18",
+                   "00:02:48",
+                   "00:03:40"
+                ],
+                "Service Level (20 Seconds)": [
+                   "76.28%",
+                   "72.73%",
+                   "74.30%",
+                   "79.61%",
+                   "97.30%",
+                   "77.17%",
+                   "82.00%",
+                   "88.10%",
+                   "79.45%",
+                   "73.63%",
+                   "81.33%",
+                   "100.00%",
+                   "86.46%",
+                   "92.61%",
+                   "80.06%"
+                ]
+             }
+          }
+       ]
+    }

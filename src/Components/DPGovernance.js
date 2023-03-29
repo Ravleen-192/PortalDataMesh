@@ -185,11 +185,10 @@ const DPCatagoriesList = (props) => {
           {archetypeList && archetypeList.map((list, index) => {
             return (<>
               {(isActive.indexOf(index) === -1) ?
-                <TableRow hover key={index} style={{ height: '20', background: '#87def4' }} onClick={() => toggleActive(index, list.Archetype)} >
+                <TableRow hover key={index} style={{ height: '20', background: '#0D9F98' }} onClick={() => toggleActive(index, list.Archetype)} >
                   <TableCell align="left" sx={{ padding: '8px', justifyContent: 'left' }} colSpan={2}>
 
-                    <ExpandMoreIcon />
-
+                   
                   </TableCell>
                   <TableCell align="left" colSpan={30} sx={{ padding: '8px', justifyContent: 'left' }} >
                     <strong>{list.Archetype}</strong>
@@ -197,9 +196,9 @@ const DPCatagoriesList = (props) => {
                 </TableRow>
                 : <>
                   <TableRow hover key={index} style={
-                    { background: '#87def4' }} onClick={() => toggleActive(index)} >
+                    { background: '#0D9F98' }} onClick={() => toggleActive(index)} >
                     <TableCell align="left" sx={{ padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
-                      <ExpandLessIcon />
+                     
                     </TableCell>
                     <TableCell align="left" colSpan={8} sx={{ padding: '8px', px: 0 }}>
                       <strong>{list.Archetype}</strong>
@@ -210,15 +209,9 @@ const DPCatagoriesList = (props) => {
                     //console.log("chchcchchchch", key, item.id)
                     return (
 
-                      <TableRow hover key={item.id} role={undefined} onClick={handleToggle(item.id)}>
+                      <TableRow hover key={item.id} style={{ height: '10', background: '#08726d' }} role={undefined} onClick={handleToggle(item.id)}>
                         <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 0 }}>
-                          <Checkbox sx={{ paddingLeft: 2 }}
-                            edge="start"
-                            checked={checked.indexOf(item.id) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            inputProps={{ 'aria-labelledby': item.id }}
-                          />
+                         
                         </TableCell>
                         <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 0 }}>
                           <Avatar src={item.Subtypes[0].Icon} />
@@ -237,7 +230,7 @@ const DPCatagoriesList = (props) => {
                 </>}
 
 
-              <Divider />
+            { /* <Divider />*/}
             </>);
 
 

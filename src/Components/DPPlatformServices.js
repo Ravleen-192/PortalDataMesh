@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-
+import TemplateItem from "./TemplateItem";
+import "../Template.css";
 import {ReactComponent as ProducerIcon} from '../resources/producer.svg'
 import {ReactComponent as ConsumerIcon} from '../resources/consumer.svg'
 import {ReactComponent as PIIIcon } from '../resources/pii.svg'
@@ -39,6 +40,7 @@ import { get_producer_template, get_producer_templates } from '../Data/templates
 import { get_consumer_template, get_consumer_templates } from '../Data/templates_consumer';
 import { get_compliance_template, get_compliance_templates } from '../Data/templates_compliance';
 import { get_qcheck_template, get_qcheck_templates } from '../Data/templates_quality';
+import Template from './Template'
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close'
 import { ConsoleLogger } from '@aws-amplify/core';
@@ -137,6 +139,7 @@ const actions = [
 ];
 export function BasicSpeedDial(props) {
   const setTemplateType = props.setTemplateType
+  const setTemplateListType = props.setTemplateListType
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   function handleClose (operation) {
@@ -144,16 +147,22 @@ export function BasicSpeedDial(props) {
     switch (operation){
       case 'addprodtemplate':
         setTemplateType('Producer')
+        setTemplateListType('Producer')
         return
       case 'addconstemplate':
         setTemplateType('Consumer')
-        return
+        setTemplateListType('Consumer')
+        return;
       case 'addcompliancechecktemplate':
         setTemplateType('PII')
-        return
+        setTemplateListType('PII')
+        
+        return;
       case 'addqualtemplate':                
         setTemplateType('Quality')
-        return
+        setTemplateListType('Quality')
+        return;
+      default: return;
     }
   }
 
@@ -245,89 +254,13 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 export function DPProducer(props){
-  
   const [publishData,setPublishData] = useState(props.publishData)
-    return (
-      <div className="form">        
-        <div className="fields">
-          <h4 className="title"> Producer Template</h4>
-          <CssTextField   value={publishData['Template Name']} className='field' size='small' label="Name"  
-                                                onChange={(e) => setPublishData(publishData =>({
-                                                      ...publishData,
-                                                      ['Template Name']:e.target.value}))}/>
-          <CssTextField  value={publishData['Template Description']} className='field' multiline size='small' label="Description"  
-                                                onChange={(e) => setPublishData(publishData =>({
-                                                      ...publishData,
-                                                      ['Template Description']:e.target.value}))}/>                  
-          <div className="storage">
-            <FormControl sx={{ width: '500px' }} size='small'>
-              <InputLabel id="demo-simple-select-label">DP Source</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={publishData['DP Source']}
-                label="DP Source"
-                onChange={(e) => setPublishData(publishData =>({
-                  ...publishData,
-                  ['DP Source']:e.target.value}))}
-              >
-              {
-                sourceList.map((source) => (
-                  <MenuItem key={source[0]} value={source[1]} >{source[0]}</MenuItem>
-                ))
-              }
-              </Select>
-            </FormControl>
-          </div>
-          <div className="storage">
-            <FormControl sx={{ width: '500px' }} size='small'>
-              <InputLabel id="demo-simple-select-label">DP Target</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={publishData['DP Target']}
-                label="DP Target"
-                onChange={(e) => setPublishData(publishData =>({
-                  ...publishData,
-                  ['DP Target']:e.target.value}))}
-              >
-              {
-                targetList.map((target) => (
-                  <MenuItem key={target[0]} value={target[1]} >{target[0]}</MenuItem>
-                ))
-              }
-              </Select>
-            </FormControl>
-          </div>
-          <div className="storage">
-            <FormControl sx={{ width: '500px' }} size='small'>
-              <InputLabel id="demo-simple-select-label">DP Format</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={publishData['DP Format']}
-                label="DP Format"
-                onChange={(e) => setPublishData(publishData =>({
-                  ...publishData,
-                  ['DP Format']:e.target.value}))}
-              >
-              {
-                targetFormat.map((format) => (
-                  <MenuItem key={format[0]} value={format[1]} >{format[0]}</MenuItem>
-                ))
-              }
-              </Select>
-            </FormControl>
-          </div>
-          <CssTextField  value={publishData['LinkRefCode']} className='field' size='small' label="Github Repo : Reference Code" onChange={(e) => setPublishData(publishData =>({
-                                                      ...publishData,
-                                                      ['LinkRefCode']:e.target.value}))}/>
-          <CssTextField  value={publishData['LinkReadme']} className='field' size='small' label="Github Repo : Readme" onChange={(e) => setPublishData(publishData =>({
-                                                      ...publishData,
-                                                      ['LinkReadme']:e.target.value}))}/>                                                                                                                        
-        </div>
-      </div> 
-    )
+  console.log("publishData",)
+  
+  return (<>
+  
+      <Template publishData={publishData} setPublishData={setPublishData} Title={publishData['Title']}/>    
+    </>)
 }
 export function DPViewProducer(props){
   const publishData = get_producer_template(props.selectedTemplateId)
@@ -396,12 +329,14 @@ export function DPViewProducer(props){
 }
 export function AddProducer(props){
   const setTemplateType = props.setTemplateType
+  
   function submitTemplate(){
     alert("Template is submitted")
     console.log(publishData)
     //publishData['Product Name'] = 'hello'
   }
   const [publishData, setPublishData] = useState({
+                                        'Title':'Add Producer Template',
                                         'id':'',
                                         'Template Name':'',
                                         'Template Description':'',
@@ -414,7 +349,7 @@ export function AddProducer(props){
       
   return (
     <div className="form">        
-      <DPProducer publishData={publishData} setPublishData={setPublishData}/>
+      <DPProducer publishData={publishData} setPublishData={setPublishData}   />
       <div className="button">
         <Button  sx={{width:'160px'}}variant="contained" 
               onClick={()=>{
@@ -1060,23 +995,27 @@ export function AddQualityCheck(props){
   )
 }
 function renderAddTemplateViewType(templateType, setTemplateType){
+  
+  
   switch(templateType){
-    case "Producer":
-      return <AddProducer setTemplateType={setTemplateType}/>
-    case "Consumer":
-      return <AddConsumer setTemplateType={setTemplateType}/>
-    case "PII":
-      return <AddComplianceCheck setTemplateType={setTemplateType}/>
-    case "Quality":
-      return <AddQualityCheck setTemplateType={setTemplateType}/>
+    case "Producer":{
+      return <AddProducer setTemplateType={setTemplateType}/>}
+    case "Consumer":{
+      return <AddConsumer setTemplateType={setTemplateType}/>}
+    case "PII":{
+      return <AddComplianceCheck setTemplateType={setTemplateType}/>}
+    case "Quality":{
+      return <AddQualityCheck setTemplateType={setTemplateType}/>}
+      default:break;
   }
 }
 function DPAddTemplatesView (props){
   const [templateType, setTemplateType] = React.useState('');
+  const [templateListType, setTemplateListType] = React.useState('');;
   return(
     <div className="dptemplateview">
       <h4 className="title"> Add templates</h4>
-      <BasicSpeedDial setTemplateType={setTemplateType}></BasicSpeedDial>
+      <BasicSpeedDial setTemplateListType = {setTemplateListType} setTemplateType={setTemplateType}></BasicSpeedDial>
       {renderAddTemplateViewType(templateType,setTemplateType)}
     </div>
   )                                            
@@ -1104,7 +1043,7 @@ function RenderTemplateList(template_list){
       <Box sx={{  bgcolor: 'background.paper',marginLeft:'5px',marginRight:'5px' }}>
         <List  sx={{marginLeft:'0px'}}>
           {
-            template_list.map((template,index)=>(
+            template_list.map((template,index)=>(<>
               <ListItemButton 
                 key={index}
                 selected={selectedIndex === index}
@@ -1113,7 +1052,16 @@ function RenderTemplateList(template_list){
                     <InboxIcon/>
                   </ListItemIcon>
                   <ListItemText  primary={template['Template Name']}/>
+                  <TemplateItem
+              key={index}
+              image={template['Icon']}
+              name={''}
+             
+            />
               </ListItemButton>
+             
+              
+              </>
             ))
           }
         </List>
@@ -1160,9 +1108,11 @@ function ProducerFilters(props){
             }}
           >
           {
-            sourceList.map((source) => (
+            sourceList.map((source) => {
+              console.log("source",source)
+              return(
               <MenuItem key={source[0]} value={source[1]} >{source[0]}</MenuItem>
-            ))
+            )})
           }
           </Select>
         </FormControl>
@@ -1408,12 +1358,15 @@ function renderSpecificFilters(listType){
 function DPTemplatesListFilter(props){
   const {selectedIndexValue, templateViewValue,templateListTypeValue} = useContext(dpTemplateContext);
   const [templateListType, setTemplateListType] = templateListTypeValue;
-  
+  const [templateType, setTemplateType] = React.useState('');
+  console.log("templateListType",templateListType)
   return(
     <div className="dplist">
-      <h4 className="title"> Available Templates</h4>
       <div className="dropdown">
-        <FormControl sx={{ width: '100%' }} size='small'>
+      <h4 className="title"> Available Templates</h4>
+         
+      <BasicSpeedDial setTemplateType={setTemplateType} setTemplateListType={setTemplateListType}></BasicSpeedDial>
+        {/*<FormControl sx={{ width: '100%' }} size='small'>
           <InputLabel id="demo-simple-select-label">Select Template Type</InputLabel>
           <Select
             labelId="select-template-type"
@@ -1428,7 +1381,7 @@ function DPTemplatesListFilter(props){
             ))
           }
           </Select>
-        </FormControl>
+        </FormControl>*/}
       </div>
       <Divider variant="fullWidth" />
       {renderSpecificFilters(templateListType)}

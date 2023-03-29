@@ -29,10 +29,10 @@ import DPPublishTableView from './DPPublishTableView';
 import DPPublishPreviewTable from "./DPPublishPreviewTable"
 import DataProductList from './DPList';
 import DPView from './DPView';
-import { useAuthenticator } from '@aws-amplify/ui-react';
+//import { useAuthenticator } from '@aws-amplify/ui-react';
 import { useLocation, useNavigate } from 'react-router';
 
-import {getPathSameStatus} from "../Components/NavAppBar"
+//import {getPathSameStatus} from "../Components/NavAppBar"
 import { URL_STR } from './constants';
 const CssTextField = styled(TextField)({
   '& label': {
@@ -401,7 +401,8 @@ function DPPublishForm (props){
                                                     onInput={e => e.target.setCustomValidity("")}/>
           <Tooltip title="Extract data from this URL" placement="bottom">
             <IconButton className='button' size="small" 
-                                    sx={{marginRight:'5px',marginTop:'1px',backgroundColor:'rgb(226, 222, 222)',color:'rgb(25,118,210)'}}
+                                    sx={{marginRight:'5px',marginTop:'1px',backgroundColor:'#0D9F98',color:'rgb(25,118,210)', '&:hover': {
+                                      bgcolor: '#08726d'}}}
                                     onClick={() => {handleFetchDPPreviewData()}}>
               <SyncIcon fontSize='small' >Close</SyncIcon>
             </IconButton>                                    
@@ -506,26 +507,32 @@ function DPPublishForm (props){
   )                                            
 }
 
-export default function DPPublish() {
+export default function DPPublish(props) {
   
   const [jsonFileContent, setJsonFileContent] = useState(null);
   //retrieve the current user's email id
-  const { user } = useAuthenticator((context) => [context.user]);
-  publishDataInitialValues["Owner Email"] =  user["attributes"]["email"]
+  const [ user,setUser ] = useState(null);
+  console.log("rrrrrrrrrrrrrrrrrr", props)
+  publishDataInitialValues["Owner Email"] =  user;
   const [publishData, setPublishData] = useState(publishDataInitialValues)
   //it was not resetting the content, when we were moving away while editing and coming back
   //hence this below piece of code... todo : need to check this
-  const location = useLocation();
+  /*const location = useLocation();
   useEffect(() => {
-    if(location['pathname'] === '/dppublish'){
-      if (getPathSameStatus() === false){  //if the nav bar menu "publish" is clicked again, do not reset the fields
+    if(location['pathname'] !== '/dppublish'){
+      //if (getPathSameStatus() === false){  //if the nav bar menu "publish" is clicked again, do not reset the fields
         //console.log("url changed",location['pathname'],location)
         resetFields(publishData,setPublishData)
         setActiveDPId(-1)
         setViewType(viewTypes[0])
-      }
+     // }
     }
-  }, [location]);
+  }, [location]);*/
+  useEffect(() => {
+    console.log(">>>>>>>>>>>>>>>> DPPUBLISH");
+    console.log(props["user"]?.email);
+    setUser(props["user"]?.email);
+  }, [props["user"]?.email]);
 
   const [publishing, setPublishing] = useState(false);
   const [disableSubtype,setDisableSubtype] = useState(false);
@@ -868,7 +875,9 @@ export default function DPPublish() {
                 form="publishform"
                 aria-label="save"
                 color="primary"
-                sx={buttonSx}
+                 sx={{backgroundColor:'#0D9F98',  '&:hover': {
+                  bgcolor: '#08726d'}}}
+               
               >
                 {publishing ? <CheckIcon /> : <CloudUploadIcon />}
               </Fab>
@@ -886,9 +895,9 @@ export default function DPPublish() {
               )}
             </Box>
             <Box sx={{ m: 1, position: 'relative' }}>
-              <Button type="submit" variant="contained" disabled={publishing} color="primary" form="publishform" >
+              <button className = "frmbtn2" type="submit" variant="contained" disabled={publishing} backgroundColor='#0D9F98' color='rgb(25,118,210)' form="publishform" >
                 Publish
-              </Button>                
+              </button>                
               {publishing && (
                 <CircularProgress
                   size={24}

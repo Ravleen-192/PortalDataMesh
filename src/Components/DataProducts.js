@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { InputAdornment } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
 
 import List from '@mui/material/List';
@@ -49,30 +49,29 @@ const SearchContainer = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "x`",
   height: 64,
-
-}));
+ }));
 
 const SearchInput = styled("input")(({ theme }) => ({
   width: "73%",
   fontSize: "1rem",
   border: "none",
   outline: "none",
-  //background:"#87def4",
+  //background:"#0D9F98",
   paddingLeft: "5px",
   height: "calc(100% - 15px)",
-  borderBottom: ' 2px #37ABC8 solid',
+  borderBottom: ' 2px #B0EADE solid',
 }));
 
-const StyledBox = styled(Box)(({ theme, textTransformStyle, ellipsis }) => ({
-  textTransform: textTransformStyle || 'none',
+const StyledBox = styled(Box)(({ theme,  ellipsis }) => ({
+  
   whiteSpace: ellipsis ? 'nowrap' : 'normal',
   overflow: ellipsis ? 'hidden' : '',
   textOverflow: ellipsis ? 'ellipsis' : '',
 }));
-const Paragraph = ({ children, className, ellipsis, textTransform, ...props }) => {
+const Paragraph = ({ children, className, ellipsis,  ...props }) => {
   return (
     <StyledBox
-      textTransformStyle={textTransform}
+     
       ellipsis={ellipsis}
       className={clsx({
         [className || '']: true,
@@ -152,13 +151,12 @@ const DPCatagoriesList = (props) => {
   };
 
   return (
-    <div className="dpcatlist">
-
-      {<List sx={{marginTop:"0px", 
+    <div className="dpcatlist" >
+     {<List sx={{marginTop:"0px" 
         
               }}>
        
-       <ListItem className="items"  sx={{ justifyContent:'center',borderBottom: ' 2px #37ABC8 solid' }}  >
+       <ListItem className="items"  sx={{ justifyContent:'center'}}  >
                 
           <ListItemText  primary={"DOMAINS & DATA PRODUCTS"} />
      
@@ -167,49 +165,51 @@ const DPCatagoriesList = (props) => {
       </List>}
 
       <Table>
-        <TableBody>
+        <TableBody style={{width: '100%'}}>
           {archetypeList && archetypeList.map((list, index) => {
             return (<>
               {(isActive.indexOf(index) === -1) ?
-                <TableRow hover key={index} style={{height: '20', background: '#87def4'}} onClick={() => toggleActive(index, list.Archetype)} >
-                  <TableCell align="left" sx={{ padding:'8px', justifyContent: 'left'}} colSpan={2}>
-
-                    <ExpandMoreIcon />
-
+                <TableRow  key={index} sx={{ width:'100%', backgroundColor: '#0D9F98',
+    '&:hover': {
+      backgroundColor: "#0a7772"
+    }
+  }} style={{height: '20',}}  onClick={() => toggleActive(index, list.Archetype)} >
+                  <TableCell align="left" sx={{color:'#ece3e3', padding:'8px', justifyContent: 'left'}} colSpan={2}>
+                      <ArrowRightIcon />
                   </TableCell>
-                  <TableCell align="left" colSpan={30} sx={{ padding:'8px', justifyContent: 'left'}} >
+                  <TableCell align="left" colSpan={30} sx={{color:'#ece3e3', padding:'8px', justifyContent: 'left'}} >
                     <strong>{list.Archetype}</strong>
                   </TableCell>
                 </TableRow>
                 : <>
-                  <TableRow hover key={index} style={
-                    { background: '#87def4' }} onClick={() => toggleActive(index)} >
-                    <TableCell align="left" sx={{ padding:'8px',px: 0, justifyContent: 'left' }} colSpan={2}>
-                      <ExpandLessIcon />
+                  <TableRow  key={index}  sx={{ width:'100%', backgroundColor: '#0D9F98',
+    '&:hover': {
+      backgroundColor: "#0a7772"
+    }
+  }} style={{height: '20',}}  onClick={() => toggleActive(index)} >
+                    <TableCell align="left" sx={{color:'#ece3e3', padding:'8px',px: 0, justifyContent: 'left' }} colSpan={2}>
+                    <ArrowDropDownIcon />
                     </TableCell>
-                    <TableCell align="left" colSpan={8} sx={{ padding:'8px',px: 0 }}>
+                    <TableCell align="left" colSpan={8} sx={{color:'#ece3e3', padding:'8px',px: 0 }}>
                       <strong>{list.Archetype}</strong>
                     </TableCell>
 
                   </TableRow>
+                  <Divider />
                   {list.children.map((item, key) => {
                     //console.log("chchcchchchch", key, item.id)
                     return (
-
-                      <TableRow hover key={item.id} role={undefined} onClick={handleToggle(item.id)}>
-                        <TableCell align="center" colSpan={2} sx={{padding:'8px', px: 0 }}>
-                          <Checkbox sx={{ paddingLeft: 2 }}
-                            edge="start"
-                            checked={checked.indexOf(item.id) !== -1}
-                            tabIndex={-1}
-                            disableRipple
-                            inputProps={{ 'aria-labelledby': item.id }}
-                          />
+<>
+                      <TableRow  key={item.id}  sx={{ width:'100%', backgroundColor: '#B0EADE',
+    '&:hover': {
+      backgroundColor: "#80e6d2"
+    }
+  }} style={{height: '20',}} role={undefined} onClick={handleToggle(item.id)}>
+                        <TableCell align="center" colSpan={2} sx={{padding:'8px', px: 1 }}>
+                         
                         </TableCell>
-                        <TableCell align="center" colSpan={2} sx={{padding:'8px', px: 0 }}>
-                          <Avatar src={item.Subtypes[0].Icon} />
-                        </TableCell>
-                        <TableCell align="center" colSpan={4} sx={{padding:'8px', px: 0, textTransform: 'capitalize' }}>
+                        
+                        <TableCell align="center" colSpan={4} sx={{ padding:'8px', px: 1, textTransform: 'capitalize' }}>
                           <Box display="flex" alignItems="left">
                             <Paragraph>{item.Archetype}</Paragraph>
                           </Box>
@@ -217,13 +217,14 @@ const DPCatagoriesList = (props) => {
 
 
                       </TableRow>
+                      <Divider /></>
                     );
                   })}
 
                 </>}
 
 
-              <Divider />
+             {/*} <Divider />*/}
             </>);
 
 
@@ -419,6 +420,7 @@ const DataProducts = () => {
        {
           
           return (
+            <><Divider />
             <div className="dpsearch">
               <SearchContainer>
                 <SearchInput type="text" placeholder="SEARCH FOR DATA PRODUCTS" onClick={(e) => clickSearch(e.target.value)}
@@ -442,7 +444,7 @@ const DataProducts = () => {
                       marginLeft: "5px",
                       marginTop: "2px",
                       backgroundColor: "rgb(226, 222, 222)",
-                      color: '#87def4',
+                      color: '#0D9F98',
                     }}
                     onClick={ (e) =>{
                       if(e.target.value !== "")
@@ -463,8 +465,8 @@ const DataProducts = () => {
                       height: "50px",
                       marginLeft: "5px",
                       marginTop: "2px",
-                      backgroundColor: "rgb(226, 222, 222)",
-                      color: '#87def4',
+                      backgroundColor: "#0D9F98",
+                      color: '#0D9F98',
                     }}
                     onClick={toggle}
                   >
@@ -476,7 +478,7 @@ const DataProducts = () => {
                 dpSearchList={dpSearchList} setDpSearchList={setDpSearchList}
                 activeDp={activeDp} setActiveDp={setActiveDp}
                 activeView={activeView} setActiveView={setActiveView}
-              /></div>);
+              /></div></>);
         } 
 
       case viewTypes[1]:
@@ -492,7 +494,7 @@ const DataProducts = () => {
   }
   return (
     <>
-      <div className="dpcatlistpage">
+      <div className="dpcatlistpage"  style={{borderTop: ' 3px #B0EADE solid'}}>
         {/* loading progress bar */}
         <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
           <CircularProgress color="inherit" className='backdrop-progress' />

@@ -109,12 +109,12 @@ export const DonutChart = (props) =>{
   )
 }
 const scoresAndText = {
-  'overall'           :{  title:'Overall score',score:91, remaining:9,  centerText:'91%',color:["#558C12","#DA2F3A"]},
-  'completeness'      :{  title:'Completeness', score:95, remaining:5,  centerText:'95%',color:["#558C12","#DA2F3A"]},
-  'timeliness'        :{  title:'Timeliness',   score:90, remaining:10,  centerText:'90%',color:["#558C12","#DA2F3A"]},
-  'validity'          :{  title:'Validty',      score:83, remaining:17,  centerText:'83%',color:["#558C12","#DA2F3A"]},
-  'accuracy'          :{  title:'Accuracy',     score:91, remaining:9,  centerText:'91%',color:["#558C12","#DA2F3A"]},
-  'consistency'       :{  title:'Consistency',  score:96, remaining:4,  centerText:'96%',color:["#558C12","#DA2F3A"]}
+  'overall'           :{  title:'Overall score',score:91, remaining:9,  centerText:'91%',color:["#0D9F98","#DA2F3A"]},
+  'completeness'      :{  title:'Completeness', score:95, remaining:5,  centerText:'95%',color:["#0D9F98","#DA2F3A"]},
+  'timeliness'        :{  title:'Timeliness',   score:90, remaining:10,  centerText:'90%',color:["#0D9F98","#DA2F3A"]},
+  'validity'          :{  title:'Validty',      score:83, remaining:17,  centerText:'83%',color:["#0D9F98","#DA2F3A"]},
+  'accuracy'          :{  title:'Accuracy',     score:91, remaining:9,  centerText:'91%',color:["#0D9F98","#DA2F3A"]},
+  'consistency'       :{  title:'Consistency',  score:96, remaining:4,  centerText:'96%',color:["#0D9F98","#DA2F3A"]}
 }
 
 const UpdateChart = (props) =>{
@@ -167,7 +167,7 @@ const UpdateChart = (props) =>{
     datasets: [
       {
         data: [2,3,4,2,2,0,7,8,9],
-        backgroundColor: '#37ABC8'
+        backgroundColor: '#08726d'
       }
     ]
   };

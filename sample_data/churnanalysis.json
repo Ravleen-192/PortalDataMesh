@@ -1,0 +1,24 @@
+{
+        "Product Owner": "Velayudham Muruegsan",    
+        "Owner Email": "askvelu@gmail.com",
+        "Creation Date": "2022-09-15",
+        "Last Update Date": "2022-09-15",
+        "Product Name": "Churn Analysis",
+        "Product Description" : "This is telecom churn data. It contains, customer information, subscribed plans, consumed minutes, most active time, charges.",
+        "Contains PII": false,
+        "Encrypted": true,
+        "Storage": "AWS S3",
+        "Source Type": "CSV",
+        "Link": "mesh-bucket-airflow/orders.csv",
+        "User Name": "Vels",
+        "Password": "password",
+        "LinkRefCode": "https://github.com/TriadhAI/portaltodata",
+        "LinkReadme":"https://github.com/TriadhAI/portaltodata/blob/master/README.md",
+        "quality":"90%",
+        "VersionId": "1",
+        "Archetype":"Customer Retention & Churn",
+        "Subtype":"",
+        "QuickSightDashboardId":"c576872b-d1d0-4739-8ad6-5b1c81b6831d",
+        "Tables":[
+        ]
+    }
