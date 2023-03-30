@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
-import { Avatar, Hidden, Icon, IconButton, MenuItem, useMediaQuery } from '@mui/material';
+import { Avatar, Divider, Hidden, Icon, IconButton, MenuItem, useMediaQuery } from '@mui/material';
 import { Box, styled } from '@mui/system';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
@@ -18,7 +18,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 
 import './App.css'
-import logo from './resources/triadh_logo_full.png';
+import logo from './resources/triadh_logo_small.png';
 import { default as Home } from "./Components/home";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Col } from 'reactstrap';
 import SignIn from "./Components/Login";
@@ -345,16 +345,16 @@ class App extends Component {
 
                 {!user ? <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
-                    <a href="#"><img className="img img-responsive navbrand" src={logo} alt="logo" /></a>
-
-                    {this.state.isOpen ?
+                <NavbarBrand href="#"><img className="banner-img" src={logo} alt="logo" /></ NavbarBrand>
+                <h3>Theia Data Mesh Portal</h3>
+                    {/*} {this.state.isOpen ?
                         <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
                         :
                         <NavbarToggler onClick={this.toggle} />
                     }
-                    <h2 className="navbrand">Theia Data Mesh Portal</h2>
+                    
 
-                    {/*} <Collapse isOpen={this.state.isOpen} navbar>
+                    <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 {links.map((element, key) => {
                                     return (
@@ -370,15 +370,15 @@ class App extends Component {
                 </Navbar> </> :
                     <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
-                        <NavbarBrand href="#"><img className="img img-responsive navbrand" src={logo} alt="logo" /></NavbarBrand>
+                        <NavbarBrand href="#"><h3>Theia Data Mesh Portal</h3></NavbarBrand>
 
-                        {this.state.isOpen ?
+                      {/*   {this.state.isOpen ?
                             <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
                             :
                             <NavbarToggler onClick={this.toggle} />
                         }
 
-                        {/* <Collapse isOpen={this.state.isOpen} navbar>
+                        <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="ml-auto" navbar>
                                 {DPLinks.map((element, key) => {
                                     return (
@@ -451,7 +451,7 @@ class App extends Component {
                                 menuButton={
                                     <UserMenu>
                                         <Hidden xsDown>
-                                            <Span>
+                                            <Span className="content">
                                                 {"Senthil Kumar"}
                                             </Span>
                                         </Hidden>

@@ -1,14 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-
+import { Icon, ButtonBase } from '@mui/material';
 import { TextField } from "@mui/material";
 import { InputAdornment } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SearchIcon from '@mui/icons-material/Search';
-
+import FilterListIcon from '@mui/icons-material/FilterList';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -24,8 +24,9 @@ import {
   TableBody,
   TableCell,
   TableRow,
-
+  Typography,
 } from '@mui/material';
+import { makeStyles } from "@mui/styles";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Divider from '@mui/material/Divider';
@@ -39,6 +40,26 @@ import { URL_STR } from "./constants"
 
 import clsx from 'clsx';
 export const viewTypes = ["cardview", "propertiesview"]
+const useStyles = makeStyles({
+  ellipsis: {
+    maxWidth: 200, // percentage also works
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  }
+});
+const FilterCtrl = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  border: '1px #B0EADE',
+  borderRadius: 24,
+  padding: 4,
+  '& span': { margin: '0 8px' },
+  '&:hover': {
+    backgroundColor: "#0a7772"
+  }
+}));
 const SearchContainer = styled("div")(({ theme }) => ({
   position: "absolute",
   top: "0",
@@ -49,7 +70,7 @@ const SearchContainer = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "x`",
   height: 64,
- }));
+}));
 
 const SearchInput = styled("input")(({ theme }) => ({
   width: "73%",
@@ -61,17 +82,32 @@ const SearchInput = styled("input")(({ theme }) => ({
   height: "calc(100% - 15px)",
   borderBottom: ' 2px #B0EADE solid',
 }));
+const FilterInput = styled('input')(({ theme }) => ({
+  width: '80%',
+  border: 'none',
+  outline: 'none',
+  fontSize: '1rem',
+  paddingLeft: '20px',
+  marginBottom: '2px',
+  height: '40px',
+  alignItems: 'left',
+  background: "transparent",
+  color: '#ece3e3',
+  '&::placeholder': { color: "#ece3e3" },
+  '&:hover': {
+    backgroundColor: "#0a7772"
+  }
+}));
+const StyledBox = styled(Box)(({ theme, ellipsis }) => ({
 
-const StyledBox = styled(Box)(({ theme,  ellipsis }) => ({
-  
   whiteSpace: ellipsis ? 'nowrap' : 'normal',
   overflow: ellipsis ? 'hidden' : '',
   textOverflow: ellipsis ? 'ellipsis' : '',
 }));
-const Paragraph = ({ children, className, ellipsis,  ...props }) => {
+const Paragraph = ({ children, className, ellipsis, ...props }) => {
   return (
     <StyledBox
-     
+
       ellipsis={ellipsis}
       className={clsx({
         [className || '']: true,
@@ -93,13 +129,16 @@ const DPCatagoriesList = (props) => {
   const setChecked = props.setChecked
   const setSearchTerm = props.setSearchTerm
   const archetypeList = getArchetypeList();
-
+  const classes = useStyles();
   const [itemsel, setitemsel] = useState('');
   const [disabled, setDisabled] = useState(true)
+  const [query, setquery] = useState("");
   const disabledCatList = props.disabledCatList
   const setDisabledCatList = props.setDisabledCatList
 
   const toggleActive = (i, Archetype) => {
+
+
 
     /* if (i === isActive)
        setActive(-1);
@@ -117,7 +156,11 @@ const DPCatagoriesList = (props) => {
     //console.log("ToggleActive", itemsel)
     setActive(itemsel);
   };
-
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    setquery(value);
+    console.log(value);
+  };
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -152,79 +195,86 @@ const DPCatagoriesList = (props) => {
 
   return (
     <div className="dpcatlist" >
-     {<List sx={{marginTop:"0px" 
-        
-              }}>
-       
-       <ListItem className="items"  sx={{ justifyContent:'center'}}  >
-                
-          <ListItemText  primary={"DOMAINS & DATA PRODUCTS"} />
-     
-      </ListItem>
-           
-      </List>}
+
+      <FilterCtrl sx={{ marginLeft: "15px" }}>
+        <FilterListIcon sx={{ color: "#ece3e3" }} />
+        <FilterInput type="text" placeholder="Filter navigator" autoFocus onChange={(event) => handleSearch(event)} />
+      </FilterCtrl>
 
       <Table>
-        <TableBody style={{width: '100%'}}>
-          {archetypeList && archetypeList.map((list, index) => {
+        <TableBody style={{ width: '100%' }}>
+          {archetypeList && archetypeList.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((list, index) => {
             return (<>
               {(isActive.indexOf(index) === -1) ?
-                <TableRow  key={index} sx={{ width:'100%', backgroundColor: '#0D9F98',
-    '&:hover': {
-      backgroundColor: "#0a7772"
-    }
-  }} style={{height: '20',}}  onClick={() => toggleActive(index, list.Archetype)} >
-                  <TableCell align="left" sx={{color:'#ece3e3', padding:'8px', justifyContent: 'left'}} colSpan={2}>
-                      <ArrowRightIcon />
+                <TableRow key={index} sx={{
+                  width: '100%', backgroundColor: '#0D9F98', border: 'none',
+                  '&:hover': {
+                    backgroundColor: "#0a7772"
+                  }
+                }} style={{ height: '20', }} onClick={() => toggleActive(index, list.Archetype)} >
+                  <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left' }} colSpan={2}>
+                    <ArrowRightIcon />
                   </TableCell>
-                  <TableCell align="left" colSpan={30} sx={{color:'#ece3e3', padding:'8px', justifyContent: 'left'}} >
-                    <strong>{list.Archetype}</strong>
+                  <TableCell align="left" colSpan={30} sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left', textOverflow: 'hidden' }} >
+                    <Typography className={classes.ellipsis}>
+                      <strong>{list.Archetype}</strong>
+                    </Typography>
+
                   </TableCell>
                 </TableRow>
                 : <>
-                  <TableRow  key={index}  sx={{ width:'100%', backgroundColor: '#0D9F98',
-    '&:hover': {
-      backgroundColor: "#0a7772"
-    }
-  }} style={{height: '20',}}  onClick={() => toggleActive(index)} >
-                    <TableCell align="left" sx={{color:'#ece3e3', padding:'8px',px: 0, justifyContent: 'left' }} colSpan={2}>
-                    <ArrowDropDownIcon />
+                  <TableRow key={index} sx={{
+                    width: '100%', backgroundColor: '#0D9F98', border: 'none',
+                    '&:hover': {
+                      backgroundColor: "#0a7772"
+                    }
+                  }} style={{ height: '20', }} onClick={() => toggleActive(index)} >
+                    <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
+                      <ArrowDropDownIcon />
                     </TableCell>
-                    <TableCell align="left" colSpan={8} sx={{color:'#ece3e3', padding:'8px',px: 0 }}>
-                      <strong>{list.Archetype}</strong>
+                    <TableCell align="left" colSpan={8} sx={{ color: '#ece3e3', padding: '8px', px: 0, textOverflow: 'hidden' }}>
+                      <Typography className={classes.ellipsis}>
+                        <strong>{list.Archetype}</strong>
+                      </Typography>
                     </TableCell>
 
                   </TableRow>
-                  <Divider />
-                  {list.children.map((item, key) => {
-                    //console.log("chchcchchchch", key, item.id)
+
+                  {list.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((item, key) => {
+
                     return (
-<>
-                      <TableRow  key={item.id}  sx={{ width:'100%', backgroundColor: '#B0EADE',
-    '&:hover': {
-      backgroundColor: "#80e6d2"
-    }
-  }} style={{height: '20',}} role={undefined} onClick={handleToggle(item.id)}>
-                        <TableCell align="center" colSpan={2} sx={{padding:'8px', px: 1 }}>
-                         
-                        </TableCell>
-                        
-                        <TableCell align="center" colSpan={4} sx={{ padding:'8px', px: 1, textTransform: 'capitalize' }}>
-                          <Box display="flex" alignItems="left">
-                            <Paragraph>{item.Archetype}</Paragraph>
-                          </Box>
-                        </TableCell>
+                      <>
+                        <TableRow key={item.id} sx={{
+                          width: '100%',
+                          backgroundColor: checked.indexOf(item.id) !== -1 ? "#80e6d2" : "#B0EADE",
+
+                          '&:hover': {
+                            backgroundColor: "#80e6d2"
+                          }
+                        }} style={{ height: '20', }} role={undefined} onClick={handleToggle(item.id)}>
+                          <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 1 }}>
+
+                          </TableCell>
+
+                          <TableCell align="center" colSpan={4} sx={{ padding: '8px', px: 1, textTransform: 'capitalize', textOverflow: 'hidden' }}>
+                            <Box display="flex" alignItems="left">
+                              <Typography className={classes.ellipsis}>
+                                {item.Archetype}
+                              </Typography>
+                            </Box>
+                          </TableCell>
 
 
-                      </TableRow>
-                      <Divider /></>
+                        </TableRow>
+
+                      </>
                     );
                   })}
 
                 </>}
 
 
-             {/*} <Divider />*/}
+              {/*} <Divider />*/}
             </>);
 
 
@@ -417,69 +467,69 @@ const DataProducts = () => {
     //console.log("grid view", checked,activeView)
     switch (activeView) {
       case viewTypes[0]:
-       {
-          
+        {
+
           return (
             <><Divider />
-            <div className="dpsearch">
-              <SearchContainer>
-                <SearchInput type="text" placeholder="SEARCH FOR DATA PRODUCTS" onClick={(e) => clickSearch(e.target.value)}
-                  label="SEARCH FOR DATA PRODUCTS"
-                  value={searchStr}
-                  onChange={(e) => setSearchStr(e.target.value)}
-                  onKeyDown={
-                    (e) => {
-                      if (e.key === "Enter" && e.target.value !== "") {
-                        clickSearch()
+              <div className="dpsearch">
+                <SearchContainer>
+                  <SearchInput type="text" placeholder="SEARCH FOR DATA PRODUCTS" onClick={(e) => clickSearch(e.target.value)}
+                    label="SEARCH FOR DATA PRODUCTS"
+                    value={searchStr}
+                    onChange={(e) => setSearchStr(e.target.value)}
+                    onKeyDown={
+                      (e) => {
+                        if (e.key === "Enter" && e.target.value !== "") {
+                          clickSearch()
+                        }
                       }
-                    }
-                  } />
-                {!open && (
-                  <IconButton
-                    className="closeicon"
-                    size="small"
-                    sx={{
-                      width: "50px",
-                      height: "50px",
-                      marginLeft: "5px",
-                      marginTop: "2px",
-                      backgroundColor: "rgb(226, 222, 222)",
-                      color: '#0D9F98',
-                    }}
-                    onClick={ (e) =>{
-                      if(e.target.value !== "")
-                        clickSearch()
+                    } />
+                  {!open && (
+                    <IconButton
+                      className="closeicon"
+                      size="small"
+                      sx={{
+                        width: "50px",
+                        height: "50px",
+                        marginLeft: "5px",
+                        marginTop: "2px",
+                        backgroundColor: "rgb(226, 222, 222)",
+                        color: '#0D9F98',
+                      }}
+                      onClick={(e) => {
+                        if (e.target.value !== "")
+                          clickSearch()
                       }
-                    }
-                  >
-                    <SearchOutlined />
-                  </IconButton>
-                )}
+                      }
+                    >
+                      <SearchOutlined />
+                    </IconButton>
+                  )}
 
-                {open && (
-                  <IconButton
-                    className="closeicon"
-                    size="small"
-                    sx={{
-                      width: "50px",
-                      height: "50px",
-                      marginLeft: "5px",
-                      marginTop: "2px",
-                      backgroundColor: "#0D9F98",
-                      color: '#0D9F98',
-                    }}
-                    onClick={toggle}
-                  >
-                    <CloseIcon fontSize="small">Close</CloseIcon>
-                  </IconButton>
-                )}
-              </SearchContainer>
-              <DPCardsView checked={checked} isActive={isActive} dpList={dpList}
-                dpSearchList={dpSearchList} setDpSearchList={setDpSearchList}
-                activeDp={activeDp} setActiveDp={setActiveDp}
-                activeView={activeView} setActiveView={setActiveView}
-              /></div></>);
-        } 
+                  {open && (
+                    <IconButton
+                      className="closeicon"
+                      size="small"
+                      sx={{
+                        width: "50px",
+                        height: "50px",
+                        marginLeft: "5px",
+                        marginTop: "2px",
+                        backgroundColor: "#0D9F98",
+                        color: '#0D9F98',
+                      }}
+                      onClick={toggle}
+                    >
+                      <CloseIcon fontSize="small">Close</CloseIcon>
+                    </IconButton>
+                  )}
+                </SearchContainer>
+                <DPCardsView checked={checked} isActive={isActive} dpList={dpList}
+                  dpSearchList={dpSearchList} setDpSearchList={setDpSearchList}
+                  activeDp={activeDp} setActiveDp={setActiveDp}
+                  activeView={activeView} setActiveView={setActiveView}
+                /></div></>);
+        }
 
       case viewTypes[1]:
         //console.log("props view")
@@ -494,7 +544,7 @@ const DataProducts = () => {
   }
   return (
     <>
-      <div className="dpcatlistpage"  style={{borderTop: ' 3px #B0EADE solid'}}>
+      <div className="dpcatlistpage" style={{ borderTop: ' 3px #B0EADE solid' }}>
         {/* loading progress bar */}
         <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
           <CircularProgress color="inherit" className='backdrop-progress' />
@@ -510,7 +560,7 @@ const DataProducts = () => {
         </DPCatagoriesList>
 
         {renderView(activeView)}
-       
+
         <Outlet />
       </div>
     </>

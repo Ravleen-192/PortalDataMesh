@@ -9,6 +9,7 @@ body{
   width: 100%;
 }
 
+
 /* 48 for app bar height and 20 for footer */
 .landingpage{
   height: calc(100vh - 48px - 20px); 
@@ -30,7 +31,7 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  font-family:Arial, Helvetica, sans-serif;
+ 
   font-size: x-large;
   font-weight: normal;
   text-align: left;
@@ -73,7 +74,6 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  font-family:Arial, Helvetica, sans-serif;
   font-size: x-large;
   font-weight: normal;
   text-align: left;
@@ -117,7 +117,7 @@ body{
   flex-direction: column;
   justify-content: center;
   align-items: left;
-  font-family:Arial, Helvetica, sans-serif;
+  
   font-size: x-large;
   font-weight: normal;
   text-align: left;
@@ -168,7 +168,6 @@ body{
   margin-top: 0px;;
   margin-bottom: 0px;
   font-size:smaller;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style:normal;
 }
 .auth-wrapper {
@@ -194,7 +193,7 @@ body{
   margin-top: 0px;;
   margin-bottom: 0px;
   font-size:smaller;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+ 
   font-style:normal;
 }
 
@@ -387,7 +386,7 @@ body{
   position:relative;
   box-shadow: 0px 0px 10px 0px #888888;
   position: fixed;
-  background-color: #0d9f98;
+  background-color:whitesmoke;
  
  }
 
@@ -425,7 +424,7 @@ body{
   width: 100%;
   color: #ece3e3;
   font-size: 30px;
-  background-color:#0D9F98;
+  background-color:#B0EADE;
   align-items: center;
   text-justify:inter-word;
   height:40px;
