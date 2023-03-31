@@ -73,7 +73,7 @@ const DPCategories = [
         "Subtypes":[{"Subtype":"Sales","Icon":SalesImg}]
       },
       {
-        "id":3,"Archetype":"Subscriprion",
+        "id":3,"Archetype":"Subscription",
         "Subtypes":[{"Subtype":"Subscription","Icon":SalesImg}]
       },
       {
@@ -204,7 +204,7 @@ const DPCategoriesold = [
         "Subtypes":[{"Subtype":"Sales","Icon":SalesImg}]
       },
       {
-        "id":3,"Archetype":"Subscriprion",
+        "id":3,"Archetype":"Subscription",
         "Subtypes":[{"Subtype":"Subscription","Icon":SalesImg}]
       },
       {

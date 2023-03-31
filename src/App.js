@@ -21,9 +21,9 @@ import './App.css'
 import logo from './resources/triadh_logo_small.png';
 import { default as Home } from "./Components/home";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Col } from 'reactstrap';
-import SignIn from "./Components/Login";
+
 import SignUp from "./Components/Reg";
-import Verify from "./Components/Verify";
+import ForgotPassword from "./Components/ForgotPassword";
 import Senthil from './resources/face-6.jpg'
 import { default as XMenu } from './Components/xMenu';
 import { default as XSearchBox } from './Components/xSearchBox'
@@ -158,6 +158,7 @@ class App extends Component {
         console.log("AAAAAAAAAA", user)
         switch (this.state.status) {
             case "Home":
+                case "SignIn":
                 if (!user) {
                     return (<Home
                         switchComponent={this.switchComponent}
@@ -191,10 +192,11 @@ class App extends Component {
                         clearInputs={this.clearInputs}
                     />
                 );
-            case "Verify":
+            case "ForgotPassword":
                 return (
-                    <Verify
+                    <ForgotPassword
                         switchComponent={this.switchComponent}
+                        user={user}
                         inputs={this.state}
                         handleFormInput={this.handleFormInput}
                         setOnLoad={this.setOnLoad}
@@ -202,17 +204,7 @@ class App extends Component {
                     />
                 );
 
-            case "SignIn":
-                return (
-                    <SignIn
-                        switchComponent={this.switchComponent}
-                        inputs={this.state}
-                        handleFormInput={this.handleFormInput}
-                        setOnLoad={this.setOnLoad}
-                        clearInputs={this.clearInputs}
-                        setUser={this.setUser}
-                    />
-                );
+          
             case "DataProducts":
                 return (<DataProducts
                     switchComponent={this.switchComponent}
@@ -419,24 +411,7 @@ class App extends Component {
                             
                 <Avatar src={Senthil} sx={{ cursor: 'pointer', width: 36, height: 36 }} />*/}
                 <Box>
-                           <XSearchBox />
-                            <IconButton
-                                className="closeicon"
-                                size="small"
-                                sx={{
-                                    width: "50px",
-                                    height: "50px",
-                                    marginLeft: "5px",
-                                    marginTop: "2px",
-                                    backgroundColor: "rgb(226, 222, 222)",
-                                    color: '#0D9F98',
-                                }}
-
-                            >
-
-                                <HelpOutlineOutlinedIcon />
-
-                            </IconButton>
+                           
                             <XMenu  sx={{
                                     mr: 2,
                                     display: { xs: 'none', md: 'flex' },
@@ -482,7 +457,24 @@ class App extends Component {
                                     <Span> Logout </Span>
                                 </StyledItem>
                             </XMenu>
+                            <XSearchBox />
+                            <IconButton
+                                className="closeicon"
+                                size="small"
+                                sx={{
+                                    width: "50px",
+                                    height: "50px",
+                                    marginLeft: "5px",
+                                    marginTop: "2px",
+                                    backgroundColor: "rgb(226, 222, 222)",
+                                    color: '#0D9F98',
+                                }}
 
+                            >
+
+                                <HelpOutlineOutlinedIcon />
+
+                            </IconButton>
 
                      
                         
@@ -507,7 +499,7 @@ class App extends Component {
 
                             } />
                            
-                            <Route path="/Login" element={
+                            <Route path="/home" element={
 
                                 <SignIn />
 

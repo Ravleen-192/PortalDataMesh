@@ -337,7 +337,88 @@ const DataProducts = () => {
               }
             )
           });
-          //console.log(docs)
+          //console.log(docs)//HACK
+          docs.push(
+            {
+              "Id": "ID", "Name": "Pre Sales",
+              "Archetype": "Pre Sales", "Subtype": ""
+            } );
+            docs.push(
+              {
+                "Id": "ID", "Name": "Subscription",
+                "Archetype": "Subscription", "Subtype": ""
+              } );
+              docs.push(
+                {
+                  "Id": "ID", "Name": "Contracts",
+                  "Archetype": "Contracts", "Subtype": ""
+                } );
+            
+            docs.push(
+              {
+                "Id": "ID", "Name": "Incidents and issues",
+                "Archetype": "Incidents and issues", "Subtype": ""
+              } );
+              docs.push(
+                {
+                  "Id": "ID", "Name": "KPIs & SLAs",
+                  "Archetype": "KPIs & SLAs", "Subtype": ""
+                } );
+              docs.push(
+                {
+                  "Id": "ID", "Name": "Order provisioning & status",
+                  "Archetype": "Order provisioning & status", "Subtype": ""
+                } );
+                docs.push(
+                  {
+                    "Id": "ID", "Name": "Order fallouts",
+                    "Archetype": "Order fallouts", "Subtype": ""
+                  } );
+                docs.push(
+                  {
+                    "Id": "ID", "Name": "Cancellations",
+                    "Archetype": "Cancellations", "Subtype": ""
+                  } );
+                  docs.push(
+                    {
+                      "Id": "ID", "Name": "Digital (.com & mobile)",
+                      "Archetype": "Digital (.com & mobile)", "Subtype": ""
+                    } );
+                    docs.push(
+                      {
+                        "Id": "ID", "Name": "IVR",
+                        "Archetype": "IVR", "Subtype": ""
+                      } );
+                      docs.push(
+                        {
+                          "Id": "ID", "Name": "Contact center",
+                          "Archetype": "Contact center", "Subtype": ""
+                        } );
+                        docs.push(
+                          {
+                            "Id": "ID", "Name": "Social media",
+                            "Archetype": "Social media", "Subtype": ""
+                          } );
+                          docs.push(
+                            {
+                              "Id": "ID", "Name": "Billing invoices",
+                              "Archetype": "Billing invoices", "Subtype": ""
+                            } );
+                            docs.push(
+                              {
+                                "Id": "ID", "Name": "Payments",
+                                "Archetype": "Payments", "Subtype": ""
+                              } );
+                            docs.push(
+                              {
+                                "Id": "ID", "Name": "Partner data",
+                                "Archetype": "Partner data", "Subtype": ""
+                              } );
+                              docs.push(
+                                {
+                                  "Id": "ID", "Name": "Network assurance",
+                                  "Archetype": "Network assurance", "Subtype": ""
+                                } );
           setLoading(false);
           setDpList(docs)
         });
@@ -438,7 +519,7 @@ const DataProducts = () => {
   }, [activeDp])
 
   useEffect(() => {
-    if (dpData.length !== 0 || activeDp != -1) {
+    if (dpData?.length !== 0 || activeDp != -1) {
       setActiveView(viewTypes[1])
       //console.log("55555555555555")
     }
@@ -532,7 +613,12 @@ const DataProducts = () => {
         }
 
       case viewTypes[1]:
-        //console.log("props view")
+        console.log("props view",activeDp)//HACK
+        if(activeDp === 'ID'){
+          setActiveView(viewTypes[0])
+        return;
+        }
+        else//HACK
         return (
           <DPView dpData={dpData} dpID={activeDp} setActiveDPId={setActiveDp} setActiveView={setActiveView} viewTypes={viewTypes} setDeleteDP={null}
             showDeleteButton={false} showEditButton={false} showCloseButton={true} />

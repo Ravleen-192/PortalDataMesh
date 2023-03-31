@@ -41,7 +41,11 @@ const Home = (props) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const handleforgotPwd = (event) => {};
+  const handleforgotPwd = (event) => {
+    props.switchComponent("ForgotPassword");
+        props.setOnLoad(true);
+        props.clearInputs();
+  };
   const handleSignIn = (event) => {
     event.preventDefault();
     const { username, password } = props.inputs;
