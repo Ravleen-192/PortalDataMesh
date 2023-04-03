@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { Icon, ButtonBase } from '@mui/material';
+import { Icon, ButtonBase, Tooltip } from '@mui/material';
 import { TextField } from "@mui/material";
 import { InputAdornment } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -16,6 +16,9 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemButton from '@mui/material/ListItemButton';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { default as SimpleCard } from './SimpleCard';
+import { Small } from './Typography'
+import DataAnalytics from '../resources/2.png'
 import {
   Avatar,
   Box,
@@ -192,6 +195,7 @@ const DPCatagoriesList = (props) => {
       </ListItem>
     )
   };
+  
 
   return (
     <div className="dpcatlist" >
@@ -203,9 +207,9 @@ const DPCatagoriesList = (props) => {
 
       <Table>
         <TableBody style={{ width: '100%' }}>
-          {archetypeList && archetypeList.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((list, index) => {
+          {archetypeList?.map((list, index) => {
             return (<>
-              {(isActive.indexOf(index) === -1) ?
+              {(isActive.indexOf(index) === -1) && (list.Archetype.toLowerCase().includes(query))?
                 <TableRow key={index} sx={{
                   width: '100%', backgroundColor: '#0D9F98', border: 'none',
                   '&:hover': {
@@ -216,14 +220,14 @@ const DPCatagoriesList = (props) => {
                     <ArrowRightIcon />
                   </TableCell>
                   <TableCell align="left" colSpan={30} sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left', textOverflow: 'hidden' }} >
-                    <Typography className={classes.ellipsis}>
+                    <Typography sx={{textAlign:'left'}}>
                       <strong>{list.Archetype}</strong>
                     </Typography>
 
                   </TableCell>
                 </TableRow>
                 : <>
-                  <TableRow key={index} sx={{
+                  {(list.Archetype.toLowerCase().includes(query))?<TableRow key={index} sx={{
                     width: '100%', backgroundColor: '#0D9F98', border: 'none',
                     '&:hover': {
                       backgroundColor: "#0a7772"
@@ -233,12 +237,12 @@ const DPCatagoriesList = (props) => {
                       <ArrowDropDownIcon />
                     </TableCell>
                     <TableCell align="left" colSpan={8} sx={{ color: '#ece3e3', padding: '8px', px: 0, textOverflow: 'hidden' }}>
-                      <Typography className={classes.ellipsis}>
+                      <Typography sx={{textAlign:'left'}}>
                         <strong>{list.Archetype}</strong>
                       </Typography>
                     </TableCell>
 
-                  </TableRow>
+                  </TableRow>:null}
 
                   {list.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((item, key) => {
 
@@ -246,10 +250,10 @@ const DPCatagoriesList = (props) => {
                       <>
                         <TableRow key={item.id} sx={{
                           width: '100%',
-                          backgroundColor: checked.indexOf(item.id) !== -1 ? "#80e6d2" : "#B0EADE",
+                          backgroundColor: checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#B0EADE",
 
                           '&:hover': {
-                            backgroundColor: "#80e6d2"
+                            backgroundColor:checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#80e6d2"
                           }
                         }} style={{ height: '20', }} role={undefined} onClick={handleToggle(item.id)}>
                           <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 1 }}>
@@ -258,9 +262,10 @@ const DPCatagoriesList = (props) => {
 
                           <TableCell align="center" colSpan={4} sx={{ padding: '8px', px: 1, textTransform: 'capitalize', textOverflow: 'hidden' }}>
                             <Box display="flex" alignItems="left">
-                              <Typography className={classes.ellipsis}>
+                              <Typography  sx={{textAlign:'left'}}>
                                 {item.Archetype}
                               </Typography>
+                              
                             </Box>
                           </TableCell>
 
@@ -342,83 +347,83 @@ const DataProducts = () => {
             {
               "Id": "ID", "Name": "Pre Sales",
               "Archetype": "Pre Sales", "Subtype": ""
-            } );
-            docs.push(
-              {
-                "Id": "ID", "Name": "Subscription",
-                "Archetype": "Subscription", "Subtype": ""
-              } );
-              docs.push(
-                {
-                  "Id": "ID", "Name": "Contracts",
-                  "Archetype": "Contracts", "Subtype": ""
-                } );
-            
-            docs.push(
-              {
-                "Id": "ID", "Name": "Incidents and issues",
-                "Archetype": "Incidents and issues", "Subtype": ""
-              } );
-              docs.push(
-                {
-                  "Id": "ID", "Name": "KPIs & SLAs",
-                  "Archetype": "KPIs & SLAs", "Subtype": ""
-                } );
-              docs.push(
-                {
-                  "Id": "ID", "Name": "Order provisioning & status",
-                  "Archetype": "Order provisioning & status", "Subtype": ""
-                } );
-                docs.push(
-                  {
-                    "Id": "ID", "Name": "Order fallouts",
-                    "Archetype": "Order fallouts", "Subtype": ""
-                  } );
-                docs.push(
-                  {
-                    "Id": "ID", "Name": "Cancellations",
-                    "Archetype": "Cancellations", "Subtype": ""
-                  } );
-                  docs.push(
-                    {
-                      "Id": "ID", "Name": "Digital (.com & mobile)",
-                      "Archetype": "Digital (.com & mobile)", "Subtype": ""
-                    } );
-                    docs.push(
-                      {
-                        "Id": "ID", "Name": "IVR",
-                        "Archetype": "IVR", "Subtype": ""
-                      } );
-                      docs.push(
-                        {
-                          "Id": "ID", "Name": "Contact center",
-                          "Archetype": "Contact center", "Subtype": ""
-                        } );
-                        docs.push(
-                          {
-                            "Id": "ID", "Name": "Social media",
-                            "Archetype": "Social media", "Subtype": ""
-                          } );
-                          docs.push(
-                            {
-                              "Id": "ID", "Name": "Billing invoices",
-                              "Archetype": "Billing invoices", "Subtype": ""
-                            } );
-                            docs.push(
-                              {
-                                "Id": "ID", "Name": "Payments",
-                                "Archetype": "Payments", "Subtype": ""
-                              } );
-                            docs.push(
-                              {
-                                "Id": "ID", "Name": "Partner data",
-                                "Archetype": "Partner data", "Subtype": ""
-                              } );
-                              docs.push(
-                                {
-                                  "Id": "ID", "Name": "Network assurance",
-                                  "Archetype": "Network assurance", "Subtype": ""
-                                } );
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Subscription",
+              "Archetype": "Subscription", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Contracts",
+              "Archetype": "Contracts", "Subtype": ""
+            });
+
+          docs.push(
+            {
+              "Id": "ID", "Name": "Incidents and issues",
+              "Archetype": "Incidents and issues", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "KPIs & SLAs",
+              "Archetype": "KPIs & SLAs", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Order provisioning & status",
+              "Archetype": "Order provisioning & status", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Order fallouts",
+              "Archetype": "Order fallouts", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Cancellations",
+              "Archetype": "Cancellations", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Digital (.com & mobile)",
+              "Archetype": "Digital (.com & mobile)", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "IVR",
+              "Archetype": "IVR", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Contact center",
+              "Archetype": "Contact center", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Social media",
+              "Archetype": "Social media", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Billing invoices",
+              "Archetype": "Billing invoices", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Payments",
+              "Archetype": "Payments", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Partner data",
+              "Archetype": "Partner data", "Subtype": ""
+            });
+          docs.push(
+            {
+              "Id": "ID", "Name": "Network assurance",
+              "Archetype": "Network assurance", "Subtype": ""
+            });
           setLoading(false);
           setDpList(docs)
         });
@@ -548,81 +553,78 @@ const DataProducts = () => {
     //console.log("grid view", checked,activeView)
     switch (activeView) {
       case viewTypes[0]:
-        {
+        return (
+          <><Divider />
+            <div className="dpsearch">
+              <SearchContainer>
+                <SearchInput type="text" placeholder="SEARCH FOR DATA PRODUCTS" onClick={(e) => clickSearch(e.target.value)}
+                  label="SEARCH FOR DATA PRODUCTS"
+                  value={searchStr}
+                  onChange={(e) => setSearchStr(e.target.value)}
+                  onKeyDown={
+                    (e) => {
+                      if (e.key === "Enter" && e.target.value !== "") {
+                        clickSearch()
+                      }
+                    }
+                  } />
+                {!open && (
+                  <IconButton
+                    className="closeicon"
+                    size="small"
+                    sx={{
+                      width: "50px",
+                      height: "50px",
+                      marginLeft: "5px",
+                      marginTop: "2px",
+                      backgroundColor: "rgb(226, 222, 222)",
+                      color: '#0D9F98',
+                    }}
+                    onClick={(e) => {
+                      if (e.target.value !== "")
+                        clickSearch()
+                    }
+                    }
+                  >
+                    <SearchOutlined />
+                  </IconButton>
+                )}
 
-          return (
-            <><Divider />
-              <div className="dpsearch">
-                <SearchContainer>
-                  <SearchInput type="text" placeholder="SEARCH FOR DATA PRODUCTS" onClick={(e) => clickSearch(e.target.value)}
-                    label="SEARCH FOR DATA PRODUCTS"
-                    value={searchStr}
-                    onChange={(e) => setSearchStr(e.target.value)}
-                    onKeyDown={
-                      (e) => {
-                        if (e.key === "Enter" && e.target.value !== "") {
-                          clickSearch()
-                        }
-                      }
-                    } />
-                  {!open && (
-                    <IconButton
-                      className="closeicon"
-                      size="small"
-                      sx={{
-                        width: "50px",
-                        height: "50px",
-                        marginLeft: "5px",
-                        marginTop: "2px",
-                        backgroundColor: "rgb(226, 222, 222)",
-                        color: '#0D9F98',
-                      }}
-                      onClick={(e) => {
-                        if (e.target.value !== "")
-                          clickSearch()
-                      }
-                      }
-                    >
-                      <SearchOutlined />
-                    </IconButton>
-                  )}
-
-                  {open && (
-                    <IconButton
-                      className="closeicon"
-                      size="small"
-                      sx={{
-                        width: "50px",
-                        height: "50px",
-                        marginLeft: "5px",
-                        marginTop: "2px",
-                        backgroundColor: "#0D9F98",
-                        color: '#0D9F98',
-                      }}
-                      onClick={toggle}
-                    >
-                      <CloseIcon fontSize="small">Close</CloseIcon>
-                    </IconButton>
-                  )}
-                </SearchContainer>
-                <DPCardsView checked={checked} isActive={isActive} dpList={dpList}
-                  dpSearchList={dpSearchList} setDpSearchList={setDpSearchList}
-                  activeDp={activeDp} setActiveDp={setActiveDp}
-                  activeView={activeView} setActiveView={setActiveView}
-                /></div></>);
-        }
+                {open && (
+                  <IconButton
+                    className="closeicon"
+                    size="small"
+                    sx={{
+                      width: "50px",
+                      height: "50px",
+                      marginLeft: "5px",
+                      marginTop: "2px",
+                      backgroundColor: "#0D9F98",
+                      color: '#0D9F98',
+                    }}
+                    onClick={toggle}
+                  >
+                    <CloseIcon fontSize="small">Close</CloseIcon>
+                  </IconButton>
+                )}
+              </SearchContainer>
+              <DPCardsView checked={checked} isActive={isActive} dpList={dpList}
+                dpSearchList={dpSearchList} setDpSearchList={setDpSearchList}
+                activeDp={activeDp} setActiveDp={setActiveDp}
+                activeView={activeView} setActiveView={setActiveView}
+              /></div></>);
 
       case viewTypes[1]:
-        console.log("props view",activeDp)//HACK
-        if(activeDp === 'ID'){
+        console.log("props view", activeDp)//HACK
+        if (activeDp === 'ID') {
           setActiveView(viewTypes[0])
-        return;
+          return;
         }
         else//HACK
-        return (
-          <DPView dpData={dpData} dpID={activeDp} setActiveDPId={setActiveDp} setActiveView={setActiveView} viewTypes={viewTypes} setDeleteDP={null}
-            showDeleteButton={false} showEditButton={false} showCloseButton={true} />
-        )
+          return (
+            <DPView dpData={dpData} dpID={activeDp} setActiveDPId={setActiveDp} setActiveView={setActiveView} viewTypes={viewTypes} setDeleteDP={null}
+              showDeleteButton={false} showEditButton={false} showCloseButton={true} />
+          )
       default:
         //console.log("default case---->")
         return (<></>)
@@ -645,7 +647,23 @@ const DataProducts = () => {
         >
         </DPCatagoriesList>
 
-        {renderView(activeView)}
+        {checked.length > 0 ?
+          <>{renderView(activeView)}</> : <div style={{ width: '100%', textAlign:'center', marginLeft:'100px' }}>{ <Box>
+           
+              <h1> Data Mesh</h1>
+              <h2>
+                <span >Delivering Data-Driven Value at Scale</span></h2>            
+
+                
+
+              <Small color="text.secondary" display="block" pt={4}>
+                Explore More!
+              </Small>
+              
+              <img src={DataAnalytics} />
+              
+             
+              </Box >}</div>}
 
         <Outlet />
       </div>

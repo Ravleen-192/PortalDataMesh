@@ -282,6 +282,11 @@ const DPCategoriesold = [
         "id":17,
         "Archetype":"Partner data",
       "Subtypes":[{"Subtype":"Partner data","Icon":ChurnImg}]
+      },
+      {
+        "id":18,
+        "Archetype":"Network assurance",
+      "Subtypes":[{"Subtype":"Network assurance","Icon":ChurnImg}]
       }
    
 ]
