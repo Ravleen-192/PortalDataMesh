@@ -9,7 +9,6 @@ body{
   width: 100%;
 }
 
-
 /* 48 for app bar height and 20 for footer */
 .landingpage{
   height: calc(100vh - 48px - 20px); 
@@ -866,7 +865,22 @@ body{
 .timingbox .chart{
   width: 70%;
 }
-
+.dpdefault
+{
+  width: 100%;
+  height: 750px;
+  text-align: center;
+  color: #0D9F98;
+  background: transparent url('./resources/2.png') 0% 0% no-repeat padding-box;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  opacity: 1;
+}
 /* 48 for app bar height*/
 .dpgovernancepage{
   height: calc(100vh - 48px - 4px);

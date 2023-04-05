@@ -17,7 +17,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { default as SimpleCard } from './SimpleCard';
-import { Small } from './Typography'
+import { H1, Small } from './Typography'
 import DataAnalytics from '../resources/2.png'
 import {
   Avatar,
@@ -33,14 +33,14 @@ import { makeStyles } from "@mui/styles";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Divider from '@mui/material/Divider';
-import { SearchOutlined } from "@mui/icons-material";
+import { Padding, SearchOutlined } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import { getArchetypeList } from "../Data/ReadTableData";
 import { DPCardsView } from './DPCardsView'
 
 import DPView from "./DPView";
 import { URL_STR } from "./constants"
-
+import {navigations} from '../navigations'
 import clsx from 'clsx';
 export const viewTypes = ["cardview", "propertiesview"]
 const useStyles = makeStyles({
@@ -129,19 +129,22 @@ const DPCatagoriesList = (props) => {
   const checked = props.checked
   const isActive = props.isActive
   const setActive = props.setActive
+  const switchComponent = props.switchComponent;
+  const [isnavActive, setnavActive] = useState(-1);
+  const [isDP, setisDP]= useState('false');
   const setChecked = props.setChecked
   const setSearchTerm = props.setSearchTerm
   const archetypeList = getArchetypeList();
   const classes = useStyles();
   const [itemsel, setitemsel] = useState('');
+  const [navitemsel, setnavitemsel] = useState(-1);
   const [disabled, setDisabled] = useState(true)
   const [query, setquery] = useState("");
   const disabledCatList = props.disabledCatList
   const setDisabledCatList = props.setDisabledCatList
 
+  
   const toggleActive = (i, Archetype) => {
-
-
 
     /* if (i === isActive)
        setActive(-1);
@@ -162,7 +165,36 @@ const DPCatagoriesList = (props) => {
   const handleSearch = (event) => {
     let value = event.target.value.toLowerCase();
     setquery(value);
-    console.log(value);
+    if(value.length>0)
+      setisDP('true');
+    //console.log(value);
+  };
+  const togglenavActive= (i) => {
+    if (i === isnavActive){
+      //console.log("HEEEEREEEE",isnavActive)
+      setnavActive(-1);    
+      setnavitemsel(-1);  
+    }
+    else {
+      //console.log("HEEEEREEEE222222222222",isnavActive)
+      setnavActive(i);
+      setnavitemsel(i);
+      setisDP('false');
+      
+    }
+ }
+  
+  const handlenavToggle = (value, i) => () => {
+   
+    togglenavActive(i);
+    if(value.type==='leaf')
+      switchComponent(value.path);
+   if(value.type==='sub' && i === isnavActive){
+      setisDP('false');
+    }
+    else if(value.type==='sub')
+     setisDP('true');
+    
   };
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -177,27 +209,8 @@ const DPCatagoriesList = (props) => {
 
     setChecked(sortedChecked);
   };
-
-
-  const CustomListItem = (props) => {
-    return (
-      <ListItem className="items" key={props.index} >
-        <ListItemButton className="dpcatlistbutton" role={undefined} onClick={handleToggle(props.index)} >
-          <Checkbox sx={{ paddingRight: 1, paddingLeft: 0 }}
-            edge="start"
-            checked={checked.indexOf(props.index) !== -1}
-            tabIndex={-1}
-            disableRipple
-            inputProps={{ 'aria-labelledby': props.index }}
-          />
-          <ListItemText sx={{ paddingLeft: 0 }} primary={props.title} />
-        </ListItemButton>
-      </ListItem>
-    )
-  };
   
-
-  return (
+ return (
     <div className="dpcatlist" >
 
       <FilterCtrl sx={{ marginLeft: "15px" }}>
@@ -207,65 +220,68 @@ const DPCatagoriesList = (props) => {
 
       <Table>
         <TableBody style={{ width: '100%' }}>
-          {archetypeList?.map((list, index) => {
+        {navigations?.map((list, nindex) => {
+          console.log("children ",list.name,list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0)
+          
+          console.log("name ",list.name,(list.name.toLowerCase().includes(query)))
             return (<>
-              {(isActive.indexOf(index) === -1) && (list.Archetype.toLowerCase().includes(query))?
-                <TableRow key={index} sx={{
+              {(nindex !== navitemsel) && ((list.name.toLowerCase().includes(query)) || (list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0 ))?
+                
+                  <TableRow key={nindex} sx={{
                   width: '100%', backgroundColor: '#0D9F98', border: 'none',
                   '&:hover': {
                     backgroundColor: "#0a7772"
                   }
-                }} style={{ height: '20', }} onClick={() => toggleActive(index, list.Archetype)} >
+                }} style={{ height: '20', }} onClick={handlenavToggle(list,nindex )} >
                   <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left' }} colSpan={2}>
-                    <ArrowRightIcon />
+                  {(list.type!=='leaf')?<ArrowRightIcon />:null}
                   </TableCell>
                   <TableCell align="left" colSpan={30} sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left', textOverflow: 'hidden' }} >
                     <Typography sx={{textAlign:'left'}}>
-                      <strong>{list.Archetype}</strong>
+                      <strong>{list.name}</strong>
                     </Typography>
 
                   </TableCell>
                 </TableRow>
                 : <>
-                  {(list.Archetype.toLowerCase().includes(query))?<TableRow key={index} sx={{
-                    width: '100%', backgroundColor: '#0D9F98', border: 'none',
-                    '&:hover': {
-                      backgroundColor: "#0a7772"
-                    }
-                  }} style={{ height: '20', }} onClick={() => toggleActive(index)} >
-                    <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
-                      <ArrowDropDownIcon />
-                    </TableCell>
-                    <TableCell align="left" colSpan={8} sx={{ color: '#ece3e3', padding: '8px', px: 0, textOverflow: 'hidden' }}>
-                      <Typography sx={{textAlign:'left'}}>
-                        <strong>{list.Archetype}</strong>
-                      </Typography>
-                    </TableCell>
+                  { (list?.name?.toLowerCase().includes(query))|| (list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0)?
+                    <TableRow key={nindex} sx={{
+                      width: '100%', backgroundColor: '#0D9F98', border: 'none',
+                      '&:hover': {
+                        backgroundColor: "#0a7772"
+                      }
+                    }} style={{ height: '20', }} onClick={handlenavToggle(list, nindex)}>
+                      <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
+                      {(list.type!=='leaf')?<ArrowDropDownIcon />:null} 
+                      </TableCell>
+                      <TableCell align="left" colSpan={8} sx={{ color: '#ece3e3', padding: '8px', px: 0, textOverflow: 'hidden' }}>
+                        <Typography sx={{textAlign:'left'}}>
+                          <strong>{list.name}</strong>
+                        </Typography>
+                      </TableCell>
 
                   </TableRow>:null}
-
-                  {list.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((item, key) => {
-
-                    return (
+                 
+                  {list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).map((itemnav, key) => {
+                     return (
                       <>
-                        <TableRow key={item.id} sx={{
+                        <TableRow key={itemnav.id} sx={{
                           width: '100%',
-                          backgroundColor: checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#B0EADE",
+                          backgroundColor: checked.indexOf(itemnav.id) !== -1 ? "#0a8e87" : "#B0EADE",
 
                           '&:hover': {
-                            backgroundColor:checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#80e6d2"
+                            backgroundColor:checked.indexOf(itemnav.id) !== -1 ? "#0a8e87" : "#80e6d2"
                           }
-                        }} style={{ height: '20', }} role={undefined} onClick={handleToggle(item.id)}>
+                        }} style={{ height: '20', }} role={undefined} onClick={handlenavToggle(itemnav, -1)}>
                           <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 1 }}>
 
                           </TableCell>
 
                           <TableCell align="center" colSpan={4} sx={{ padding: '8px', px: 1, textTransform: 'capitalize', textOverflow: 'hidden' }}>
                             <Box display="flex" alignItems="left">
-                              <Typography  sx={{textAlign:'left'}}>
-                                {item.Archetype}
+                              <Typography sx={{textAlign:'left'}}>
+                                {itemnav.name}
                               </Typography>
-                              
                             </Box>
                           </TableCell>
 
@@ -284,13 +300,92 @@ const DPCatagoriesList = (props) => {
 
 
           })}
+          {(isDP==='true') && archetypeList?.map((listarch, index) => {
+                    
+                    return (<>
+                      {(isActive.indexOf(index) === -1) && (listarch.Archetype.toLowerCase().includes(query)||(listarch.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query))).length>0)?
+                        <TableRow key={index} sx={{
+                          width: '100%', backgroundColor: '#0D9F98', border: 'none',
+                          '&:hover': {
+                            backgroundColor: "#0a7772"
+                          }
+                        }} style={{ height: '20', }} onClick={() => toggleActive(index, listarch.Archetype)} >
+                          <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left' }} colSpan={2}>
+                            <ArrowRightIcon />
+                          </TableCell>
+                          <TableCell align="left" colSpan={30} sx={{ color: '#ece3e3', padding: '8px', justifyContent: 'left', textOverflow: 'hidden' }} >
+                            <Typography sx={{textAlign:'left'}}>
+                              <strong>{listarch.Archetype}</strong>
+                            </Typography>
+
+                          </TableCell>
+                        </TableRow>
+                        : <>
+                          {((listarch.Archetype.toLowerCase().includes(query))|| ((listarch.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query))).length>0))?
+                            <TableRow key={index} sx={{
+                              width: '100%', backgroundColor: '#0D9F98', border: 'none',
+                              '&:hover': {
+                                backgroundColor: "#0a7772"
+                              }
+                            }} style={{ height: '20', }} onClick={() => toggleActive(index)} >
+                            <TableCell align="left" sx={{ color: '#ece3e3', padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
+                              <ArrowDropDownIcon />
+                            </TableCell>
+                            <TableCell align="left" colSpan={8} sx={{ color: '#ece3e3', padding: '8px', px: 0, textOverflow: 'hidden' }}>
+                              <Typography sx={{textAlign:'left'}}>
+                                <strong>{listarch.Archetype}</strong>
+                              </Typography>
+                            </TableCell>
+
+                          </TableRow>:null}
+
+                          {listarch.children.filter(DataSource => DataSource.Archetype.toLowerCase().includes(query)).map((item, key) => {
+                           
+                            return (
+                              <>
+                                <TableRow key={item.id} sx={{
+                                  width: '100%',
+                                  backgroundColor: checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#B0EADE",
+
+                                  '&:hover': {
+                                    backgroundColor:checked.indexOf(item.id) !== -1 ? "#0a8e87" : "#80e6d2"
+                                  }
+                                }} style={{ height: '20', }} role={undefined} onClick={handleToggle(item.id)}>
+                                  <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 1 }}>
+
+                                  </TableCell>
+
+                                  <TableCell align="center" colSpan={4} sx={{ padding: '8px', px: 1, textTransform: 'capitalize', textOverflow: 'hidden' }}>
+                                    <Box display="flex" alignItems="left">
+                                      <Typography  sx={{textAlign:'left'}}>
+                                        {item.Archetype}
+                                      </Typography>
+                                      
+                                    </Box>
+                                  </TableCell>
+
+
+                                </TableRow>
+
+                              </>
+                            );
+                  })}
+
+                </>}
+
+
+              {/*} <Divider />*/}
+            </>);
+
+
+          })}
         </TableBody>
       </Table>
     </div>
   );
 };
 
-const DataProducts = () => {
+const DataProducts = (props) => {
 
   const [loading, setLoading] = useState(false);
   const [dpList, setDpList] = useState([]);
@@ -305,9 +400,10 @@ const DataProducts = () => {
   const [disabledCatList, setDisabledCatList] = useState(false)
   const [searchStr, setSearchStr] = useState("")
   const [open, setOpen] = useState(false);
+  
   const toggle = () => {
     setOpen(!open);
-    console.log("Toggle")
+    //console.log("Toggle")
     setSearchTerm("")
     setSearchStr("")
     setDpSearchList([])
@@ -479,7 +575,7 @@ const DataProducts = () => {
 
   useEffect(() => {
     if (searchTerm !== "") {
-      console.log("search term changed", searchTerm)
+      //console.log("search term changed", searchTerm)
       setLoading(true);
       searchDP();
     }
@@ -615,7 +711,7 @@ const DataProducts = () => {
               /></div></>);
 
       case viewTypes[1]:
-        console.log("props view", activeDp)//HACK
+        //console.log("props view", activeDp)//HACK
         if (activeDp === 'ID') {
           setActiveView(viewTypes[0])
           return;
@@ -639,7 +735,7 @@ const DataProducts = () => {
         </Backdrop>
 
         <DPCatagoriesList
-          checked={checked} setChecked={setChecked}
+          checked={checked} setChecked={setChecked} switchComponent={props.switchComponent}
           isActive={isActive} setActive={setActive}
           setSearchTerm={setSearchTerm}
           disabledCatList={disabledCatList}
@@ -648,21 +744,18 @@ const DataProducts = () => {
         </DPCatagoriesList>
 
         {checked.length > 0 ?
-          <>{renderView(activeView)}</> : <div style={{ width: '100%', textAlign:'center', marginLeft:'100px' }}>{ <Box>
+          <>{renderView(activeView)}</> : <div className="dpdefault">{ <Box sx={{padding:'100px'}}>
            
+             
               <h1> Data Mesh</h1>
               <h2>
                 <span >Delivering Data-Driven Value at Scale</span></h2>            
+              
 
-                
-
-              <Small color="text.secondary" display="block" pt={4}>
+              <H1 color="blue" display="block" pt={4}>
                 Explore More!
-              </Small>
+              </H1>
               
-              <img src={DataAnalytics} />
-              
-             
               </Box >}</div>}
 
         <Outlet />

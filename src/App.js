@@ -337,7 +337,7 @@ class App extends Component {
 
                 {!user ? <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
-                <NavbarBrand href="#"><img className="banner-img" src={logo} alt="logo" /></ NavbarBrand>
+                <NavbarBrand href="Home"><img className="banner-img" src={logo} alt="logo" /></ NavbarBrand>
                 <h3>Theia Data Mesh Portal</h3>
                     {/*} {this.state.isOpen ?
                         <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
@@ -362,7 +362,7 @@ class App extends Component {
                 </Navbar> </> :
                     <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
-                        <NavbarBrand href="#"><h3>Theia Data Mesh Portal</h3></NavbarBrand>
+                        <NavbarBrand href="Home"><h3>Theia Data Mesh Portal</h3></NavbarBrand>
 
                       {/*   {this.state.isOpen ?
                             <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
