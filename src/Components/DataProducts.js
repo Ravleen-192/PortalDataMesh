@@ -744,19 +744,7 @@ const DataProducts = (props) => {
         </DPCatagoriesList>
 
         {checked.length > 0 ?
-          <>{renderView(activeView)}</> : <div className="dpdefault">{ <Box sx={{padding:'100px'}}>
-           
-             
-              <h1> Data Mesh</h1>
-              <h2>
-                <span >Delivering Data-Driven Value at Scale</span></h2>            
-              
-
-              <H1 color="blue" display="block" pt={4}>
-                Explore More!
-              </H1>
-              
-              </Box >}</div>}
+          <>{renderView(activeView)}</> : <div className="dpdefault"></div>}
 
         <Outlet />
       </div>
