@@ -521,6 +521,80 @@ body{
   padding-right: 4px;
   margin-bottom: 10px;
  }
+ /*///////////////////////////////////////*/
+ .bg_img_front {
+  /*background-image: url('./resources/PrimaryPaletteColor.png');*/
+  background-color: gainsboro;
+}
+.bg_img_back {
+  /*background-image: url('./resources/Accent2.png');*/
+  background-color:white;
+}
+.back-text {
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.frontside .card,
+.backside .card {
+  min-height: 250px;
+  min-width: 250px;
+  border-radius: 5;
+}
+
+.backside .card a {
+  font-size: 18px;
+  color: #058CD5 !important;
+  text-decoration: underline !important;
+}
+
+.backside .card a:hover {
+  color: blueviolet !important;
+}
+
+.frontside .card .card-title,
+.backside .card .card-title {
+  color: #007b5e !important;
+}
+/*
+.frontside .card .card-body img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}*/
+
+.card-body {
+  font-family: 'Muli', sans-serif;
+  
+  font-style: normal;
+  font-weight: normal;
+  display: flex;
+
+  align-items: flex-start;
+  color: #000000;
+}
+
+.card-body .second-card {
+  color: #FFFFFF !important;
+}
+
+.card-body .serv-second-card {
+  color: #000 !important;
+}
+
+.frontside {
+  font-size: 24px;
+  line-height: 31px;
+
+}
+
+.backside {
+  font-size: 18px;
+  line-height: 23px;
+}
+
+ /*//////////////////////////////*/
+ 
 
  .dpstatsview{
   height: 100%;
