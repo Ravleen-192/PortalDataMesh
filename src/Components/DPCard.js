@@ -155,7 +155,7 @@ const DPCard = (props) => {
           </Typography>
         </CardContent>
         </div>
-        <div className="card-body back-text">
+        <div >
         <CardActions sx={{justifyContent:'center', motionRotation:'180'}}>
           <Rating sx={{margin:0,padding:0}}
               size='small'
