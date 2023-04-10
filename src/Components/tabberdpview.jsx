@@ -7,6 +7,9 @@ import  SimpleCard  from './SimpleCard'
 import InfoTwoToneIcon from '@mui/icons-material/InfoTwoTone';
 import DetailsTwoToneIcon from '@mui/icons-material/DetailsTwoTone';
 import RouteTwoToneIcon from '@mui/icons-material/RouteTwoTone';
+import { DataAttrList } from "../Data/DataAttrList";
+import TemplateItem from "./TemplateItem";
+import "../Template.css";
 
 import AppsTwoToneIcon from '@mui/icons-material/AppsTwoTone';
 import IntegrationInstructionsTwoToneIcon from '@mui/icons-material/IntegrationInstructionsTwoTone';
@@ -328,7 +331,7 @@ export default function BasicTabs(props) {
       
       <Box sx={{ py: '12px' }} />
 
-      <SimpleCard title="Quality and Lineage">
+      <SimpleCard title="Quality and Lineage"> {/* Need to get the data here. Hard Coded*/ }
       <DPLineageView 
                 catalogName = {dpData['Product Name']}
                 tableName = {dpData["Tables"][0]['Name']}
@@ -360,15 +363,39 @@ export default function BasicTabs(props) {
       
       <Box sx={{ py: '12px' }} />
 
-      <SimpleCard title="Usage & Apps">
+      <SimpleCard title="">
       <div className='usecase'>
-          <div className="card">
+       {/*<div className="card">
             <img className='icon' src={AppsImg} color='red'/>          
             <Typography component={'span'}  variant="body2" color="text.secondary">
               <Box sx={{fontWeight: 'bold',marginLeft:'4px' }}>Usage and Apps</Box>
             </Typography>            
-          </div>  
-        </div>
+          </div>  */}
+           <div className="template">
+       <div className="form">        
+        <div className="fields">
+        
+      <h1 className="templateTitle">{"Usage and Apps"}</h1>
+      
+      
+      <div className="templateList">  
+        {DataAttrList.map((templateItem, key) => {
+          console.log("templateItem",)
+          return (
+            <TemplateItem
+              key={key}
+              image={templateItem.image}
+              name={templateItem.name}
+              price={templateItem.price}
+            />
+          );
+        })}
+      </div>
+    
+      </div>
+      </div>
+      </div>
+  </div>
       </SimpleCard>
 
       
