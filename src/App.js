@@ -37,7 +37,7 @@ import DataProducts from './Components/DataProducts';
 import DPPublish from './Components/DPPublish';
 import DPGovernance from './Components/DPGovernance';
 import DPPlatformServices from './Components/DPPlatformServices';
-
+import { Navigate } from 'react-router-dom';
 
 import AlertComponent from './Handlers/AlertComponent';
 Amplify.configure(config);
@@ -67,6 +67,7 @@ var mContext;
 class App extends Component {
     constructor() {
         super();
+      
         this.state = {
             isOpen: false,
             isBackButtonClicked: false,
@@ -77,14 +78,8 @@ class App extends Component {
             user: null, // will contain our user data object when signed in
             status: "Home", loaded: true, hasError: false, type: "", message: "",
             noti_open: false, user_open: false,
-            links: [
-                { href: '#', text: 'Theia Data Mesh Portal', menuId: 0, source: "Home", isActive: true }],
-            DPLinks: [
-                { href: '#DataProducts', text: 'DataProducts', menuId: 1, source: "DataProducts", isActive: false },
-                { href: '#DPPublish', text: 'Publish', menuId: 2, source: "DPPublish", isActive: false },
-                { href: '#DPPlatformServices', text: 'Platform Services', menuId: 3, source: "DPPlatformServices", isActive: false },
-                { href: '#DPGovernance', text: 'Governance', menuId: 4, source: "DPGovernance", isActive: false }
-            ],
+            signout : false,
+           
         };
         mContext = this;
         this.toggle = this.toggle.bind(this);
@@ -98,31 +93,32 @@ class App extends Component {
     componentDidMount() {
         this.setOnLoad(true);
 
-        console.log("ComponentDIDOUNT", this.state.user)
+        //console.log("ComponentDIDOUNT", this.state.user)
         Auth.currentAuthenticatedUser({
             bypassCache: true // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
         })
             .then(data => {
                 let user = { username: data.username, ...data.attributes }
                 this.setUser(user);
-                console.log(user);
+                //console.log(user);
             })
             .catch(err => {
                 this.setOnLoad(true);
-                console.log(err)
+                //console.log(err)
             }
             );
     }
     handlesignOut = event => {
+        
         try {
             this.setOnLoad(false);
             Auth.signOut();
             this.setUser(null);
-            this.switchComponent("Home");
+            this.setState({signout: true});
             this.setOnLoad(true);
         } catch (error) {
             this.setOnLoad(true);
-            console.log('error signing out: ', error);
+            //console.log('error signing out: ', error);
         }
     };
     handleFormInput = (event) => {
@@ -151,118 +147,7 @@ class App extends Component {
             default:
                 break;
         }
-    }
-    AuthComponent = () => {
-        let { user } = this.state;
-
-        console.log("AAAAAAAAAA", user)
-        switch (this.state.status) {
-            case "Home":
-                case "SignIn":
-                if (!user) {
-                    return (<Home
-                        switchComponent={this.switchComponent}
-                        inputs={this.state}
-                        user={user}
-                        setUser={this.setUser}
-                        handleFormInput={this.handleFormInput}
-                        setOnLoad={this.setOnLoad}
-                        clearInputs={this.clearInputs}
-                    />
-                    );
-                }
-                else
-                    return (<DataProducts
-                        switchComponent={this.switchComponent}
-                        inputs={this.state}
-                        handleFormInput={this.handleFormInput}
-                        setOnLoad={this.setOnLoad}
-                        clearInputs={this.clearInputs}
-                        source={this.state.status}
-                    />
-                    );
-
-            case "SignUp":
-                return (
-                    <SignUp
-                        switchComponent={this.switchComponent}
-                        inputs={this.state}
-                        handleFormInput={this.handleFormInput}
-                        setOnLoad={this.setOnLoad}
-                        clearInputs={this.clearInputs}
-                    />
-                );
-            case "ForgotPassword":
-                return (
-                    <ForgotPassword
-                        switchComponent={this.switchComponent}
-                        user={user}
-                        inputs={this.state}
-                        handleFormInput={this.handleFormInput}
-                        setOnLoad={this.setOnLoad}
-                        clearInputs={this.clearInputs}
-                    />
-                );
-
-          
-            case "DataProducts":
-                return (<DataProducts
-                    switchComponent={this.switchComponent}
-                    inputs={this.state}
-                    handleFormInput={this.handleFormInput}
-                    setOnLoad={this.setOnLoad}
-                    clearInputs={this.clearInputs}
-                    source={this.state.status}
-                />
-                );
-            case "DPPublish":
-                return (<DPPublish
-                    switchComponent={this.switchComponent}
-                    inputs={this.state}
-                    user={user}
-                    handleFormInput={this.handleFormInput}
-                    setOnLoad={this.setOnLoad}
-                    clearInputs={this.clearInputs}
-                    source={this.state.status}
-                />
-                );
-
-            case "DPPlatformServices":
-                return (<DPPlatformServices
-                    switchComponent={this.switchComponent}
-                    inputs={this.state}
-                    handleFormInput={this.handleFormInput}
-                    setOnLoad={this.setOnLoad}
-                    clearInputs={this.clearInputs}
-                    source={this.state.status}
-                />
-                );
-            case "DPGovernance":
-                return (<DPGovernance
-                    switchComponent={this.switchComponent}
-                    inputs={this.state}
-                    handleFormInput={this.handleFormInput}
-                    setOnLoad={this.setOnLoad}
-                    clearInputs={this.clearInputs}
-                    source={this.state.status}
-                />
-                );
-            default:
-                break;
-
-        }
     };
-    switchComponent = status => {
-        this.setState({ status });
-        this.closeNavbar();
-    };
-    // onClickMenuItem(menuId){
-    //   var Component = ImportComponent(menuId);
-    //   this.setState({child:<Component.default 
-    //     onClickMenuItem={this.onClickMenuItem}
-    //   />});
-    //   this.closeNavbar();
-    // }
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
@@ -330,86 +215,24 @@ class App extends Component {
     }
 
     render() {
-        let { type, message, hasError, user, noti_open, user_open, DPLinks, links } = this.state;
-        console.log("AAAAAAAAAA", user)
+        let { signout, type, message, hasError, user, noti_open, user_open, DPLinks, links } = this.state;
+        //console.log("AAAAAAAAAA", user)
         return (
             <section>
-
+                {signout &&
+                    <Navigate to="/home" />
+                }
                 {!user ? <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
                 <NavbarBrand href="Home"><img className="banner-img" src={logo} alt="logo" /></ NavbarBrand>
                 <h3>Theia Data Mesh Portal</h3>
-                    {/*} {this.state.isOpen ?
-                        <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
-                        :
-                        <NavbarToggler onClick={this.toggle} />
-                    }
-                    
-
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                {links.map((element, key) => {
-                                    return (
-                                        <NavItem key={element.menuId} active={element.isActive}>
-                                            <NavLink active={element.isActive} href={element.href} className={element.className}
-                                                onClick={() => { mContext.switchComponent(element.source); this.setMenuActive("Landing", key) }}>{element.text}</NavLink>
-                                        </NavItem>
-                                    )
-                                })}
-                            </Nav>
-                            </Collapse>*/}
                     
                 </Navbar> </> :
                     <><Navbar dark expand="md" sticky={'top'} className="navbar-header">
 
                         <NavbarBrand href="Home"><h3>Theia Data Mesh Portal</h3></NavbarBrand>
 
-                      {/*   {this.state.isOpen ?
-                            <a onClick={this.toggle} type="button" className="navbar-toggle pull-right closebtn">X</a>
-                            :
-                            <NavbarToggler onClick={this.toggle} />
-                        }
-
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                {DPLinks.map((element, key) => {
-                                    return (
-                                        <NavItem key={element.menuId} active={element.isActive}>
-                                            <NavLink active={element.isActive} href={element.href} className={element.className}
-                                                onClick={() => { mContext.switchComponent(element.source); this.setMenuActive("dpmenu", key) }}>{element.text}</NavLink>
-                                        </NavItem>
-                                    )
-                                })}
-                            
-                                   
-                                    <NavItem className={user_open ? "user user-menu open" : "user user-menu"} onClick={this.handlesignOut}>
-                                        <a href="/" className=" frmbtn2">
-                                            <span ><span >{"Sign Out"}</span></span>
-                                        </a>
-                                    </NavItem>
-                                </Nav>
-                            </Collapse>
-                            <Typography
-                               
-                                noWrap
-                                component="a"
-                                sx={{
-                                    mr: 2,
-                                    display: { xs: 'none', md: 'flex' },
-                                    fontFamily: 'Arial',
-                                    fontSize: '12px',
-                                    fontWeight: 'bold',
-                                    letterSpacing: '.05rem',
-                                    color: 'gray',
-                                    textDecoration: 'none',
-                                    marginLeft: '10px'
-                                }}
-                            >
-                                {/*user.email
-                                {"Senthil Kumar"}
-                            </Typography>
-                            
-                <Avatar src={Senthil} sx={{ cursor: 'pointer', width: 36, height: 36 }} />*/}
+                     
                 <Box>
                            
                             <XMenu  sx={{
@@ -491,28 +314,48 @@ class App extends Component {
                         />
                     </Col>}
                 </section>
-                {/* <Router>
+                
+               
                         <Routes>
                             <Route path="/" element={
 
-                                <Home user={user} />
+                                <Home  inputs={this.state}
+                                user={user}
+                                setUser={this.setUser}
+                                handleFormInput={this.handleFormInput}
+                                setOnLoad={this.setOnLoad}
+                                clearInputs={this.clearInputs} />
 
                             } />
                            
                             <Route path="/home" element={
 
-                                <SignIn />
+                                <Home  inputs={this.state}
+                                user={user}
+                                setUser={this.setUser}
+                                handleFormInput={this.handleFormInput}
+                                setOnLoad={this.setOnLoad}
+                                clearInputs={this.clearInputs}/>
 
                             } />
-                            <Route path="/Reg" element={
+                    <Route path="/forgotpassword" element={
 
-                                <SignUp />
+                        <ForgotPassword  user={user}
+                        inputs={this.state}
+                        handleFormInput={this.handleFormInput}
+                        setOnLoad={this.setOnLoad}
+                        clearInputs={this.clearInputs}/>
 
                             } />
 
                             <Route path="/dataproducts" element={
 
-                                <DataProducts />
+                                <DataProducts  inputs={this.state}
+                                user={user}
+                                setUser={this.setUser}
+                                handleFormInput={this.handleFormInput}
+                                setOnLoad={this.setOnLoad}
+                                clearInputs={this.clearInputs}/>
 
                             }
                             />
@@ -536,12 +379,6 @@ class App extends Component {
                             />
 
                         </Routes>
-
-                        </Router>*/}
-
-                <div>{this.AuthComponent()}</div>
-
-               
 
             </section>
         );

@@ -17,8 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 /*const divStyle = {
   backgroundposition: "50% 0",
   backgroundSize: 'cover',
@@ -34,6 +33,7 @@ const Footer = () => (
   </footer>
 );
 const ForgotPassword = (props) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   const [showPassword, setShowPassword] = React.useState(false);
@@ -120,50 +120,16 @@ const ForgotPassword = (props) => {
     event.preventDefault();
   };
   const handleforgotPwd = (event) => {
-    props.switchComponent("Home");
+    navigate("/home");
     props.setOnLoad(true);
     props.clearInputs();
   };
   const handleSignIn = (event) => {
     event.preventDefault();
-    props.switchComponent("Home");
+    navigate("/home");
     props.setOnLoad(true);
     props.clearInputs();
-    /*
-    const { username, password } = props.inputs;
-    if (!username) {
-      showError("User name Required");
-      return;
-    }
-    if (!password) {
-      showError("Password required");
-      return;
-    }
-    props.setOnLoad(false);
-    // You can pass an object which has the username, password and validationData which is sent to a PreAuthentication Lambda trigger
-    Auth.signIn({ username, password })
-      .then((user) => {
-        console.log("1", user);
-        props.setUser(user);
-        props.switchComponent("DataProducts");
-        props.setOnLoad(true);
-      })
-      .then(() => {
-        props.switchComponent("DataProducts");
-        props.setOnLoad(true);
-        props.clearInputs();
-      })
-      .catch((err) => {
-        if (err.code == "UserNotConfirmedException") {
-          props.switchComponent("ForgotPassword");
-        } else {
-          if (err && err.message) {
-            showError(err.message);
-          }
-        }
-        props.setOnLoad(true);
-        console.log("2", err);
-      });*/
+   
   };
  
   function renderRequestCodeForm() {

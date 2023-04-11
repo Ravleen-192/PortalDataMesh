@@ -5,19 +5,15 @@ import lpimage2 from "../resources/lp_search.jpg"
 //import lpimage2 from "../images/Landing1.png";
 import { Auth } from "aws-amplify";
 import { showError } from "../App";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Input from "@mui/material/Input";
-import FilledInput from "@mui/material/FilledInput";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 /*const divStyle = {
   backgroundposition: "50% 0",
   backgroundSize: 'cover',
@@ -33,6 +29,8 @@ const Footer = () => (
   </footer>
 );
 const Home = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -42,7 +40,9 @@ const Home = (props) => {
     event.preventDefault();
   };
   const handleforgotPwd = (event) => {
-    props.switchComponent("ForgotPassword");
+   
+   navigate("/forgotpassword")
+    
         props.setOnLoad(true);
         props.clearInputs();
   };
@@ -63,17 +63,18 @@ const Home = (props) => {
       .then((user) => {
         console.log("1", user);
         props.setUser(user);
-        props.switchComponent("DataProducts");
+       
+        navigate("/dataproducts")
+       
         props.setOnLoad(true);
       })
       .then(() => {
-        props.switchComponent("DataProducts");
-        props.setOnLoad(true);
-        props.clearInputs();
+        navigate("/dataproducts")
+        
       })
       .catch((err) => {
         if (err.code == "UserNotConfirmedException") {
-          props.switchComponent("Home");
+          navigate("/home")
         } else {
           if (err && err.message) {
             showError(err.message);
@@ -100,19 +101,7 @@ const Home = (props) => {
   return (
     <section>
       {user !== undefined && user !== null ? (
-        <div className="homepage">
-          <div className="homepageimage">
-            <img className="img" src={lpimage2} alt="data search" />
-          </div>
-          <div className="homepagetext">
-            <h1>Welcome to DataMesh!</h1>
-            <h3>
-              Bring in your domain data as a product into the Mesh, unleash
-              rapid experimentation and next-gen analytics.
-            </h3>
-            <h3>Explore Data Products.</h3>
-          </div>
-        </div>
+      navigate("/dataproducts")
       ) : (
         <div className="landingpage">
           <div className="landingpageimage">

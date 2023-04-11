@@ -16,6 +16,8 @@ import Checkbox from '@mui/material/Checkbox';
 import ListItemButton from '@mui/material/ListItemButton';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useLocation, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { default as SimpleCard } from './SimpleCard';
 import { H1, Small } from './Typography'
 import DataAnalytics from '../resources/2.png'
@@ -129,7 +131,8 @@ const DPCatagoriesList = (props) => {
   const checked = props.checked
   const isActive = props.isActive
   const setActive = props.setActive
-  const switchComponent = props.switchComponent;
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isnavActive, setnavActive] = useState(-1);
   const [isDP, setisDP]= useState('false');
   const setChecked = props.setChecked
@@ -185,10 +188,11 @@ const DPCatagoriesList = (props) => {
  }
   
   const handlenavToggle = (value, i) => () => {
-   
+   console.log("NAVIGATE", value.path)
     togglenavActive(i);
     if(value.type==='leaf')
-      switchComponent(value.path);
+     navigate(value.path)
+      
    if(value.type==='sub' && i === isnavActive){
       setisDP('false');
     }
@@ -221,9 +225,9 @@ const DPCatagoriesList = (props) => {
       <Table>
         <TableBody style={{ width: '100%' }}>
         {navigations?.map((list, nindex) => {
-          console.log("children ",list.name,list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0)
+          //console.log("children ",list.name,list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0)
           
-          console.log("name ",list.name,(list.name.toLowerCase().includes(query)))
+          //console.log("name ",list.name,(list.name.toLowerCase().includes(query)))
             return (<>
               {(nindex !== navitemsel) && ((list.name.toLowerCase().includes(query)) || (list?.children?.filter(DataSource => DataSource.name.toLowerCase().includes(query)).length>0 ))?
                 
@@ -735,7 +739,7 @@ const DataProducts = (props) => {
         </Backdrop>
 
         <DPCatagoriesList
-          checked={checked} setChecked={setChecked} switchComponent={props.switchComponent}
+          checked={checked} setChecked={setChecked} 
           isActive={isActive} setActive={setActive}
           setSearchTerm={setSearchTerm}
           disabledCatList={disabledCatList}
