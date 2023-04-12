@@ -524,11 +524,11 @@ body{
  /*///////////////////////////////////////*/
  .bg_img_front {
   /*background-image: url('./resources/PrimaryPaletteColor.png');*/
-  background-color: rgb(98, 235, 164);
+  background-color: lightgray;
 }
 .bg_img_back {
   /*background-image: url('./resources/Accent2.png');*/
-  background-color:rgb(26, 230, 241);
+  background-color:white;
 }
 .back-text {
   color: #FFFFFF;

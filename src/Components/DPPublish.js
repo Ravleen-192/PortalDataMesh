@@ -24,15 +24,11 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
 import DPPublishTableView from './DPPublishTableView';
 import DPPublishPreviewTable from "./DPPublishPreviewTable"
 import DataProductList from './DPList';
+import DPCatagoriesList from './DPCategoriesList';
 import DPView from './DPView';
-//import { useAuthenticator } from '@aws-amplify/ui-react';
-import { useLocation, useNavigate } from 'react-router';
-
-//import {getPathSameStatus} from "../Components/NavAppBar"
 import { URL_STR } from './constants';
 const CssTextField = styled(TextField)({
   '& label': {
@@ -239,6 +235,7 @@ function DPPublishForm (props){
   const dummyForceRefresh = props.dummyForceRefresh
   const setDummyForceRefresh = props.setDummyForceRefresh
   const setFetchDPPreviewData = props.setFetchDPPreviewData
+  
 
   const handleSubmit = e =>{
     e.preventDefault()
@@ -538,6 +535,8 @@ export default function DPPublish(props) {
   const [disableSubtype,setDisableSubtype] = useState(false);
   
   //get list of published data products for the current userfrom OpenSearch index
+  const [checked, setChecked] = useState([]);
+  const [isActive, setActive] = useState([]);
   const [loading, setLoading] = useState(false);
   const [dpList, setDpList] = useState([]);
   const [error, setError] = useState({});
@@ -1018,8 +1017,14 @@ export default function DPPublish(props) {
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
         <CircularProgress color="inherit" className='backdrop-progress'/>
       </Backdrop>
+      <DPCatagoriesList
+          checked={checked} setChecked={setChecked}
+          isActive={isActive} setActive={setActive}         
+        >
+        </DPCatagoriesList>
+      {/*
       <DataProductList dpList={dpList} activeDPId={activeDPId} setActiveDPId={setActiveDPId} loading={loading} title="My Data Products">
-      </DataProductList>
+  </DataProductList>*/}
       {renderViewTypes()}
     </div>
   )

@@ -2,79 +2,29 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import { TextField } from "@mui/material";
-import { InputAdornment } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import SearchIcon from '@mui/icons-material/Search';
 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import ListItemButton from '@mui/material/ListItemButton';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
-  Avatar,
+ 
   Box,
   styled,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
+  
 
 } from '@mui/material';
 import { Stack } from "@mui/material";
 import IconLabelTabs from "./tabber";
-import Breadcrumb from './Breadcrumb'
-import SimpleCard from './SimpleCard'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import Divider from '@mui/material/Divider';
-import { SearchOutlined } from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
-import { getArchetypeList } from "../Data/ReadTableData";
-import { DPCardsView } from './DPCardsView'
 
-import DPView from "./DPView";
+import SimpleCard from './SimpleCard'
+
+import DPCatagoriesList from './DPCategoriesList';
+
+
 import { URL_STR } from "./constants"
 
 import clsx from 'clsx';
 export const viewTypes = ["cardview", "propertiesview"]
-const Container = styled("div")(({ theme }) => ({
-  margin: "20px",
-  marginTop: "80px",
-  top: "0",
-  marginBottom: "30px",
-  height: "calc(100% - 15px)",
 
-}
-));
-const SearchContainer = styled("div")(({ theme }) => ({
-  position: "absolute",
-  top: "0",
-  border: "none",
-  outline: "none",
-  marginLeft: "5px",
-  width: "100%",
-  display: "flex",
-  alignItems: "x`",
-  height: 64,
-
-}));
-
-const SearchInput = styled("input")(({ theme }) => ({
-  width: "73%",
-  fontSize: "1rem",
-  border: "none",
-  outline: "none",
-  //background:"#87def4",
-  paddingLeft: "5px",
-  height: "calc(100% - 15px)",
-  borderBottom: ' 2px #37ABC8 solid',
-}));
 
 const StyledBox = styled(Box)(({ theme, textTransformStyle, ellipsis }) => ({
   textTransform: textTransformStyle || 'none',
@@ -82,164 +32,8 @@ const StyledBox = styled(Box)(({ theme, textTransformStyle, ellipsis }) => ({
   overflow: ellipsis ? 'hidden' : '',
   textOverflow: ellipsis ? 'ellipsis' : '',
 }));
-const Paragraph = ({ children, className, ellipsis, textTransform, ...props }) => {
-  return (
-    <StyledBox
-      textTransformStyle={textTransform}
-      ellipsis={ellipsis}
-      className={clsx({
-        [className || '']: true,
-      })}
-      component="p"
-      mb={0}
-      mt={0}
-      fontSize="14px"
-      {...props}
-    >
-      {children}
-    </StyledBox>
-  );
-};
-const DPCatagoriesList = (props) => {
-  const checked = props.checked
-  const isActive = props.isActive
-  const setActive = props.setActive
-  const setChecked = props.setChecked
-  const setSearchTerm = props.setSearchTerm
-  const archetypeList = getArchetypeList();
-
-  const [itemsel, setitemsel] = useState('');
-  const [disabled, setDisabled] = useState(true)
-  const disabledCatList = props.disabledCatList
-  const setDisabledCatList = props.setDisabledCatList
-
-  const toggleActive = (i, Archetype) => {
-
-    /* if (i === isActive)
-       setActive(-1);
-     else setActive(i);
-     setitemsel(i);*/
-    const currentIndex = isActive.indexOf(i);
-    const newActive = [...isActive];
-
-    if (currentIndex === -1) {
-      newActive.push(i);
-    } else {
-      newActive.splice(currentIndex, 1);
-    }
-    const itemsel = newActive.sort(function (a, b) { return a - b; });
-    //console.log("ToggleActive", itemsel)
-    setActive(itemsel);
-  };
-
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    const sortedChecked = newChecked.sort(function (a, b) { return a - b; });
-
-    setChecked(sortedChecked);
-  };
 
 
-  const CustomListItem = (props) => {
-    return (
-      <ListItem className="items" key={props.index} >
-        <ListItemButton className="dpcatlistbutton" role={undefined} onClick={handleToggle(props.index)} >
-          <Checkbox sx={{ paddingRight: 1, paddingLeft: 0 }}
-            edge="start"
-            checked={checked.indexOf(props.index) !== -1}
-            tabIndex={-1}
-            disableRipple
-            inputProps={{ 'aria-labelledby': props.index }}
-          />
-          <ListItemText sx={{ paddingLeft: 0 }} primary={props.title} />
-        </ListItemButton>
-      </ListItem>
-    )
-  };
-
-  return (
-    <div className="dpcatlist">
-
-      {<List sx={{
-        marginTop: "0px",
-
-      }}>
-
-        <ListItem className="items" sx={{ justifyContent: 'center', borderBottom: ' 2px #37ABC8 solid' }}  >
-
-          <ListItemText primary={"DOMAINS & DATA PRODUCTS"} />
-
-        </ListItem>
-
-      </List>}
-
-      <Table>
-        <TableBody>
-          {archetypeList && archetypeList.map((list, index) => {
-            return (<>
-              {(isActive.indexOf(index) === -1) ?
-                <TableRow hover key={index} style={{ height: '20', background: '#0D9F98' }} onClick={() => toggleActive(index, list.Archetype)} >
-                  <TableCell align="left" sx={{ padding: '8px', justifyContent: 'left' }} colSpan={2}>
-
-                   
-                  </TableCell>
-                  <TableCell align="left" colSpan={30} sx={{ padding: '8px', justifyContent: 'left' }} >
-                    <strong>{list.Archetype}</strong>
-                  </TableCell>
-                </TableRow>
-                : <>
-                  <TableRow hover key={index} style={
-                    { background: '#0D9F98' }} onClick={() => toggleActive(index)} >
-                    <TableCell align="left" sx={{ padding: '8px', px: 0, justifyContent: 'left' }} colSpan={2}>
-                     
-                    </TableCell>
-                    <TableCell align="left" colSpan={8} sx={{ padding: '8px', px: 0 }}>
-                      <strong>{list.Archetype}</strong>
-                    </TableCell>
-
-                  </TableRow>
-                  {list.children.map((item, key) => {
-                    //console.log("chchcchchchch", key, item.id)
-                    return (
-
-                      <TableRow hover key={item.id} style={{ height: '10', background: '#08726d' }} role={undefined} onClick={handleToggle(item.id)}>
-                        <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 0 }}>
-                         
-                        </TableCell>
-                        <TableCell align="center" colSpan={2} sx={{ padding: '8px', px: 0 }}>
-                          <Avatar src={item.Subtypes[0].Icon} />
-                        </TableCell>
-                        <TableCell align="center" colSpan={4} sx={{ padding: '8px', px: 0, textTransform: 'capitalize' }}>
-                          <Box display="flex" alignItems="left">
-                            <Paragraph>{item.Archetype}</Paragraph>
-                          </Box>
-                        </TableCell>
-
-
-                      </TableRow>
-                    );
-                  })}
-
-                </>}
-
-
-            { /* <Divider />*/}
-            </>);
-
-
-          })}
-        </TableBody>
-      </Table>
-    </div>
-  );
-};
 export default function DPGovernance() {
 
   const [loading, setLoading] = useState(false);
@@ -512,10 +306,7 @@ export default function DPGovernance() {
 
         <DPCatagoriesList
           checked={checked} setChecked={setChecked}
-          isActive={isActive} setActive={setActive}
-          setSearchTerm={setSearchTerm}
-          disabledCatList={disabledCatList}
-          setDisabledCatList={setDisabledCatList}
+          isActive={isActive} setActive={setActive}         
         >
         </DPCatagoriesList>
 

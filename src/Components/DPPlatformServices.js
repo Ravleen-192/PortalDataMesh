@@ -6,11 +6,11 @@ import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import TemplateItem from "./TemplateItem";
 import "../Template.css";
+import { useNavigate } from 'react-router-dom';
 import {ReactComponent as ProducerIcon} from '../resources/producer.svg'
 import {ReactComponent as ConsumerIcon} from '../resources/consumer.svg'
 import {ReactComponent as PIIIcon } from '../resources/pii.svg'
 import {ReactComponent as QualityIcon } from '../resources/quality.svg'
-
 import { useEffect, useState, useContext,createContext,useRef, useReducer } from "react";
 import TextField from '@mui/material/TextField';
 import Switch from '@mui/material/Switch';
@@ -45,6 +45,7 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close'
 import { ConsoleLogger } from '@aws-amplify/core';
 import { Analytics } from 'aws-amplify';
+import DPCatagoriesList from './DPCategoriesList';
 
 const templateTypes = [
   ['None',''],
@@ -1470,10 +1471,13 @@ function renderEditOrDisplayTemplate(editTemplateView){
 export const dpTemplateContext = createContext();
 
 export default function DPPlatformServices() {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [editTemplateView, setEditTemplateView] = React.useState(true);
-  const [templateListType, setTemplateListType] = React.useState('')
-  const [selectedTemplateId, setSelectedTemplateId] = React.useState(-1)
+  const navigate = useNavigate();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [checked, setChecked] = useState([]);
+  const [isActive, setActive] = useState([]);
+  const [editTemplateView, setEditTemplateView] = useState(true);
+  const [templateListType, setTemplateListType] = useState('')
+  const [selectedTemplateId, setSelectedTemplateId] = useState(-1)
   return (
     <dpTemplateContext.Provider value={{selectedIndexValue:[selectedIndex, setSelectedIndex],
                                         templateViewValue:[editTemplateView, setEditTemplateView],
@@ -1481,9 +1485,14 @@ export default function DPPlatformServices() {
                                         selectedTemplateIdValue:[selectedTemplateId, setSelectedTemplateId]
                                       }}>
       <div className="dpservicepage">
-          
-        <DPTemplatesListFilter/>
-        {renderEditOrDisplayTemplate(editTemplateView)}
+      
+        <DPCatagoriesList
+          checked={checked} setChecked={setChecked} 
+          isActive={isActive} setActive={setActive}
+        >
+        </DPCatagoriesList>
+       {/*} <DPTemplatesListFilter/>*/}
+       {renderEditOrDisplayTemplate(editTemplateView)}
         
       </div>
     </dpTemplateContext.Provider>
