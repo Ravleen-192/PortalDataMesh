@@ -138,50 +138,89 @@ const archetypes = [
           ['None','']
         ]
   },
-  { 'Type': ['Service Delivery','Service Delivery'], 
+  { 'Type': ['Subscription','Subscription'],
     'Subtype':  [
           ['None','']
         ]
   },
-  { 'Type': ['Service Assurance','Service Assurance'], 
+  { 'Type': ['Contracts','Contracts'],
     'Subtype':  [
           ['None','']
         ]
   },
-  { 'Type': ['Customers','Customers'], 
+  { 'Type': ['Order provisioning & status','Order provisioning & status'],
     'Subtype':  [
           ['None','']
         ]
   },
-  { 'Type': ['Customer Service','Customer Service'], 
-    'Subtype':  [
-          ['None',''],
-          ['IVR Usage', 'IVR Usage'],
-          ['Call Center Usage', 'Call Center Usage']
-        ]
-  },
-  { 'Type': ['Digital','Digital'], 
-    'Subtype':  [
-          ['None',''],
-          ['Web Usage','Web Usage',],
-          ['Mobile Usage', 'Mobile Usage'],
-          ['Social Media', 'Social Media'],
-          ['Telemetry Data', 'Telemetry Data'],
-          ['Chat', 'Chat']
-        ]
-  },
-  { 'Type': ['Store','Store'],   
-    'Subtype':  [
-          ['None','']
-        ]
-  },
-  { 'Type': ['Third Party','Third Party'],
-    'Subtype':  [
-          ['None',''],
-          ['Broadband Adoption', 'Broadband Adoption'],
-          ['Infrastructure', 'Infrastructure']
-        ]
-  }
+  { 'Type': ['Order fallouts','Order fallouts'],
+  'Subtype':  [
+        ['None','']
+      ]
+},{ 'Type': ['Cancellations','Cancellations'],
+'Subtype':  [
+      ['None','']
+    ]
+},
+ { 'Type': ['Incidents and issues','Incidents and issues'],
+  'Subtype':  [
+        ['None','']
+      ]
+},
+{ 'Type': ['KPIs and SLAs','KPIs and SLAs'],
+'Subtype':  [
+      ['None','']
+    ]
+},
+ 
+{ 'Type': ['IVR','IVR'],
+  'Subtype':  [
+        ['None','']
+      ]
+},
+{ 'Type': ['Digital (.com & mobile)','Digital (.com & mobile)'],
+'Subtype':  [
+      ['None','']
+    ]
+}, 
+{ 'Type': ['Social media','Social media'],
+'Subtype':  [
+      ['None','']
+    ]
+},
+{ 'Type': ['Contact center','Contact center'],
+'Subtype':  [
+    ['None','']
+  ]
+},
+ { 'Type': ['Store','Store'],
+'Subtype':  [
+      ['None','']
+    ]
+},
+
+{ 'Type': ['Billing invoices','Billing invoices'],
+  'Subtype':  [
+        ['None','']
+      ]
+},
+{ 'Type': ['Payments','Payments'],
+'Subtype':  [
+      ['None','']
+    ]
+}, 
+{ 'Type': ['Partner data','Partner data'],
+  'Subtype':  [
+        ['None','']
+        
+      ]
+},
+{ 'Type': ['Network assurance','Network assurance'],
+  'Subtype':  [
+      ['None','']
+      
+    ]
+}
 ]
 function getSubTypeCount(selectedType){
   for (let i =0;i<archetypes.length;i++){

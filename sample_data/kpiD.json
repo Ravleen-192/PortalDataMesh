@@ -1,0 +1,185 @@
+{
+        "Product Owner": "Velayudham Muruegsan",    
+        "Owner Email": "askvelu@gmail.com",
+        "Creation Date": "2022-07-15",
+        "Last Update Date": "2022-07-15",
+        "Product Name": "Service Assurance",
+        "Product Description" : "This Service Assurance data from the KPIs and SLAs",
+        "Contains PII": false,
+        "Encrypted": false,
+        "Storage": "AWS S3",
+        "Source Type": "CSV",
+        "Link": "arn:aws:s3:::customerinteraction",
+        "User Name": "Vels",
+        "Password": "password",
+        "LinkRefCode": "https://github.com/TriadhAI/portaltodata",
+        "LinkReadme":"https://github.com/TriadhAI/portaltodata/blob/master/README.md",
+        "quality":"90%",
+        "VersionId": "1",
+        "Archetype":"KPIs and SLAs",
+        "Subtype":"",
+        "QuickSightDashboardId":"",
+        "Tables":[
+          {
+             "Name": "Customer interaction data",
+             "Columns": [
+                {
+                   "Name": "RecordID",
+                   "Type": "int",
+                   "Comment": "Interaction recod ID"
+                },
+                {
+                   "Name": "CustomerInteractionRawText",
+                   "Type": "text",
+                   "Comment": "Discussion points"
+                },
+                {
+                   "Name": "AgentAssignedTopic",
+                   "Type": "text",
+                   "Comment": "Issue faced by customer"
+                },
+                {
+                   "Name": "LocationID",
+                   "Type": "int",
+                   "Comment": "Location ID - region"
+                },
+                {
+                   "Name": "CallDurationSeconds",
+                   "Type": "int",
+                   "Comment": "Duration of discussion"
+                },
+                {
+                   "Name": "AgentID",
+                   "Type": "text",
+                   "Comment": "Agent's Id"
+                },
+                {
+                   "Name": "CustomerID",
+                   "Type": "text",
+                   "Comment": "Customer's Id"
+                }
+             ],
+             "Preview": {
+                "RecordID": [
+                   "1890041",
+                   "1890042",
+                   "1890043",
+                   "1890044",
+                   "1890045",
+                   "1890046",
+                   "1890047",
+                   "1890048",
+                   "1890049",
+                   "1890050",
+                   "1890051",
+                   "1890052",
+                   "1890053",
+                   "1890054",
+                   "1890055"
+                ],
+                "CustomerInteractionRawText": [
+                   "Cus not satisfied with service. want to port out to Idea network. ",
+                   "Jadav called to check his porting out status. Shared information with him.",
+                   "Customer thraetened to cancel her service. Said Idea is offerring much better options.",
+                   "called to ask steps for porting out. She is leaving India.",
+                   "Customer dissatisfied with support. Connectivity is poor in his region. Wanted to port to BSNL.",
+                   "port out Options. >> Tried to retain. >> Xferred to Manager.",
+                   "Customer wanted port out. Transferred to offer better plans to retain.",
+                   "Kumar called to ask about his porting status. Moving to BSNL.",
+                   "Cus wanted to cancel the connection. Transferred to port-out Management Team",
+                   "porting out because of high bill on Data Plans.",
+                   "Nicki called to inform poor connectivity in Kannur region.",
+                   "Low speed connection reported in Uppala area.",
+                   "Cellular connection speed is less than 1MBps. asked Operator to check the device.",
+                   "8289716467 called to complain about the connection speed.",
+                   "New customer facing internet speed issues. asked to restart device & connect again."
+                ],
+                "AgentAssignedTopic": [
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Port Out",
+                   "Poor Connectivity",
+                   "Poor Connectivity",
+                   "Poor Connectivity",
+                   "Poor Connectivity",
+                   "Poor Connectivity"
+                ],
+                "LocationID": [
+                   "8",
+                   "1",
+                   "9",
+                   "5",
+                   "7",
+                   "5",
+                   "8",
+                   "0",
+                   "3",
+                   "0",
+                   "9",
+                   "3",
+                   "6",
+                   "1",
+                   "1"
+                ],
+                "CallDurationSeconds": [
+                   "10",
+                   "6",
+                   "15",
+                   "15",
+                   "13",
+                   "20",
+                   "20",
+                   "10",
+                   "9",
+                   "17",
+                   "7",
+                   "17",
+                   "15",
+                   "9",
+                   "10"
+                ],
+                "AgentID": [
+                   "z88Nr",
+                   "xGAVI",
+                   "T7Kdd",
+                   "jtifd",
+                   "hxY3d",
+                   "K1XpF",
+                   "ksjXv",
+                   "0MmQN",
+                   "nGpIG",
+                   "C9mBD",
+                   "fvMNk",
+                   "eUYn2",
+                   "VbG2n",
+                   "3bYnT",
+                   "t2KEl"
+                ],
+                "CustomerID": [
+                   "5Ms7y",
+                   "s8Zyb",
+                   "3IB8J",
+                   "mtR3W",
+                   "DbBmN",
+                   "iJaJT",
+                   "kOoUz",
+                   "Y2jwL",
+                   "95UP8",
+                   "tpBJs",
+                   "yt8X7",
+                   "movRl",
+                   "wHF3B",
+                   "HK2hK",
+                   "F6SFJ"
+                ]
+             }
+          }
+       ]
+    }

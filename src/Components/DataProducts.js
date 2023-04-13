@@ -107,22 +107,7 @@ const DataProducts = (props) => {
             )
           });
           //console.log(docs)//HACK
-          docs.push(
-            {
-              "Id": "ID", "Name": "Pre Sales",
-              "Archetype": "Pre Sales", "Subtype": ""
-            });
-          docs.push(
-            {
-              "Id": "ID", "Name": "Subscription",
-              "Archetype": "Subscription", "Subtype": ""
-            });
-          docs.push(
-            {
-              "Id": "ID", "Name": "Contracts",
-              "Archetype": "Contracts", "Subtype": ""
-            });
-
+         
           docs.push(
             {
               "Id": "ID", "Name": "Incidents and issues",
@@ -168,16 +153,7 @@ const DataProducts = (props) => {
               "Id": "ID", "Name": "Social media",
               "Archetype": "Social media", "Subtype": ""
             });
-          docs.push(
-            {
-              "Id": "ID", "Name": "Billing invoices",
-              "Archetype": "Billing invoices", "Subtype": ""
-            });
-          docs.push(
-            {
-              "Id": "ID", "Name": "Payments",
-              "Archetype": "Payments", "Subtype": ""
-            });
+         
           docs.push(
             {
               "Id": "ID", "Name": "Partner data",
