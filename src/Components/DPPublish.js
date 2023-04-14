@@ -167,7 +167,7 @@ const archetypes = [
         ['None','']
       ]
 },
-{ 'Type': ['KPIs and SLAs','KPIs and SLAs'],
+{ 'Type': ['KPIs & SLAs','KPIs & SLAs'],
 'Subtype':  [
       ['None','']
     ]

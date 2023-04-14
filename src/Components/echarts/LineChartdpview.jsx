@@ -35,8 +35,8 @@ const LineChart = ({ height, color = [] }) => {
       {
         data: [30, 40, 20, 50, 40, 80, 90],
         type: 'line',
-        stack: 'Compliance',
-        name: 'Compliance',
+        stack: 'Data retention',
+        name: 'Data retention',
         smooth: true,
         symbolSize: 4,
         lineStyle: { width: 4 },
@@ -44,8 +44,8 @@ const LineChart = ({ height, color = [] }) => {
       {
         data: [20, 50, 15, 50, 30, 70, 95],
         type: 'line',
-        stack: 'Data validation',
-        name: 'Data Valdation',
+        stack: 'Data Streaming',
+        name: 'Data Streaming',
         smooth: true,
         symbolSize: 4,
         lineStyle: { width: 4 },
@@ -53,8 +53,8 @@ const LineChart = ({ height, color = [] }) => {
       {
         data: [30, 60, 25, 75, 45, 85, 98],
         type: 'line',
-        stack: 'Data quality',
-        name: 'Data quality',
+        stack: 'Analytics',
+        name: 'Analytics',
         smooth: true,
         symbolSize: 4,
         lineStyle: { width: 4 },
