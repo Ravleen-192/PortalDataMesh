@@ -283,7 +283,7 @@ function DPPublishForm (props){
     var finalPublishData = JSON.parse(JSON.stringify(publishData))
     finalPublishData['Creation Date'] = dateStr
     finalPublishData['Last Update Date'] = dateStr
-    //console.log(finalPublishData)
+    console.log("PPPPPPPUUUUBBBB update",finalPublishData)
     
     setPublishing(true);
     var requestOptions = {
@@ -548,8 +548,8 @@ export default function DPPublish(props) {
   const [jsonFileContent, setJsonFileContent] = useState(null);
   //retrieve the current user's email id
   const [ user,setUser ] = useState(null);
-  console.log("rrrrrrrrrrrrrrrrrr", props)
-  publishDataInitialValues["Owner Email"] =  user;
+  console.log("rrrrrrrrrrrrrrrrrr",  props.user.email)
+  publishDataInitialValues["Owner Email"] =  props.user.email;
   const [publishData, setPublishData] = useState(publishDataInitialValues)
   //it was not resetting the content, when we were moving away while editing and coming back
   //hence this below piece of code... todo : need to check this
@@ -881,7 +881,10 @@ export default function DPPublish(props) {
     if(viewType === viewTypes[0] || activeDPId === -1){  //publish view -> new data product
       
       return(
+        <> <DataProductList dpList={dpList} activeDPId={activeDPId} setActiveDPId={setActiveDPId} loading={loading} title="My Data Products">
+        </DataProductList>
         <div className="dppublishview">
+          
           <h4 className="title"> Publish a new data product</h4>
           <Stack direction="row" justifyContent="center" alignItems="top" marginBottom="10px">
             <Typography component={'span'} variant="body2" color="text.secondary">
@@ -913,9 +916,7 @@ export default function DPPublish(props) {
                 form="publishform"
                 aria-label="save"
                 color="primary"
-                 sx={{backgroundColor:'#0D9F98',  '&:hover': {
-                  bgcolor: '#08726d'}}}
-               
+                sx={buttonSx}
               >
                 {publishing ? <CheckIcon /> : <CloudUploadIcon />}
               </Fab>
@@ -933,9 +934,9 @@ export default function DPPublish(props) {
               )}
             </Box>
             <Box sx={{ m: 1, position: 'relative' }}>
-              <button className = "frmbtn2" type="submit" variant="contained" disabled={publishing} backgroundColor='#0D9F98' color='rgb(25,118,210)' form="publishform" >
+              <Button type="submit" variant="contained" disabled={publishing} color="primary" form="publishform" >
                 Publish
-              </button>                
+              </Button>                
               {publishing && (
                 <CircularProgress
                   size={24}
@@ -951,23 +952,27 @@ export default function DPPublish(props) {
               )}
             </Box>
           </Box>
-        </div>
+        </div></>
       )
     } if (viewType === viewTypes[1]){  //view DP -> view existing dp
       
       return(
         <>
+         <DataProductList dpList={dpList} activeDPId={activeDPId} setActiveDPId={setActiveDPId} loading={loading} title="My Data Products">
+      </DataProductList>
         <DPView dpData={dpData} dpID={activeDPId} setActiveDPId={setActiveDPId} setViewType={setViewType} viewTypes={viewTypes} setDeleteDP={setDeleteDP}
                 showDeleteButton={true} showEditButton={true} showCloseButton={true}/>
-        <div className="stats">
+        {/*<div className="stats">
             <h4 className="title">Statistics</h4>
-        </div>
+      </div>*/}
         </>
       )
     }
     else{ //viewTypes[2] //edit existing DP
       
-      return(
+      return(<>
+       <DataProductList dpList={dpList} activeDPId={activeDPId} setActiveDPId={setActiveDPId} loading={loading} title="My Data Products">
+      </DataProductList>
         <div className="dppublishview">
           <div>
             {/*<h4 className='title'> Edit data product</h4>*/}
@@ -1046,7 +1051,7 @@ export default function DPPublish(props) {
               )}
             </Box>
           </Box>
-        </div>
+        </div></>
       )
     }
   }

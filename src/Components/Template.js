@@ -40,13 +40,14 @@ function Template(props) {
     <div className="template">
        <div className="form">        
         <div className="fields">
-        
-      <h1 className="templateTitle">{props.Title}</h1>
+        <h1 className="templateTitle">{props.Title}</h1>
       <CssTextField  value={publishData['Template Name']} className='field' size='small' label="Name" />
       <CssTextField  value={publishData['Template Description']} className='field' multiline size='small' label="Description" />                  
  
       <StatCards filter = {filter} setFilter = {setFilter} query = {query} setquery={setquery}  publishData={publishData} setPublishData={setPublishData} Title={publishData['Title']}/>
-      <div className="templateList">  
+      
+     <div className="templateList">  
+    
         {query?DataAttrList.filter(DataSource=>DataSource.name.toLowerCase().includes(query)).map((templateItem, key) => {
           console.log("templateItem",)
           return (

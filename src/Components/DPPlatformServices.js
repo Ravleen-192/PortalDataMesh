@@ -1491,7 +1491,9 @@ export default function DPPlatformServices() {
           isActive={isActive} setActive={setActive}
         >
         </DPCatagoriesList>
-       {/*} <DPTemplatesListFilter/>*/}
+       
+       <DPTemplatesListFilter/>
+       
        {renderEditOrDisplayTemplate(editTemplateView)}
         
       </div>

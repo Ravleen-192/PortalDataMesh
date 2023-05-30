@@ -42,7 +42,7 @@ export default function DPGovernance() {
   const [error, setError] = useState({});
   const [checked, setChecked] = useState([]);
   const [isActive, setActive] = useState([]);
-  const [activeDp, setActiveDp] = useState(-1);
+  const [activeDp, setActiveDPId] = useState(-1);
   const [activeView, setActiveView] = useState(viewTypes[0]);	//default view is card view
   const [dpData, setDpData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("")
@@ -196,7 +196,7 @@ export default function DPGovernance() {
   useEffect(() => {
     const close = (e) => {
       if (e.key === 'Escape') { //go back to product card view
-        setActiveDp(-1)
+        setActiveDPId(-1)
         setActiveView(viewTypes[0])
         //console.log("6666666666666666")
       }

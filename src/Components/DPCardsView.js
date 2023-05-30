@@ -10,12 +10,12 @@ import DPCard from './DPCard'
 const CreateCard = (props) => {
   const cardInfo = props.cardInfo
   const activeDp = props.activeDp
-  const setActiveDp = props.setActiveDp
+  const setActiveDPId = props.setActiveDPId
 	const activeView = props.activeView
   const setActiveView = props.setActiveView
-  console.log("CreateCard cardInfo",cardInfo )
-  console.log("CreateCard activeDp",activeDp )
-  console.log("CreateCard activeView",activeView )
+  //console.log("CreateCard cardInfo",cardInfo )
+  //console.log("CreateCard activeDp",activeDp )
+  //console.log("CreateCard activeView",activeView )
 
   return (
     <Grid item lg={3} md={4} sm={6 }xs={12} key={cardInfo["Id"]}>
@@ -25,7 +25,7 @@ const CreateCard = (props) => {
           description={cardInfo["Name"]} 
           id={cardInfo["Id"]}
           rating={cardInfo["Rating"]}
-          activeDp={activeDp} setActiveDp={setActiveDp}
+          activeDp={activeDp} setActiveDPId={setActiveDPId}
           activeView={activeView} setActiveView={setActiveView}>
         </DPCard>
       </div>
@@ -41,7 +41,8 @@ const DPCardsView = (props) => {
   const setDpSearchList = props.setDpSearchList  
   /////////////////
   const activeDp = props.activeDp
-  const setActiveDp = props.setActiveDp
+  const deleteID = props.deleteID
+  const setActiveDPId = props.setActiveDPId
 	const activeView = props.activeView
   const setActiveView = props.setActiveView
   ///////////////////
@@ -50,14 +51,14 @@ const DPCardsView = (props) => {
 	const [dpCardsInfoList, setDpCardsInfoList] = useState([])
 
   const CreateCards = ( props ) => { 
-    console.log("CreateCards dpCardsInfoList",dpCardsInfoList )
+    //console.log("CreateCards dpCardsInfoList",dpCardsInfoList )
     if (dpCardsInfoList){
-      console.log("CreateCards Could not come hee???????")
+      //console.log("CreateCards Could not come hee???????")
 		return(
 		Object.keys(dpCardsInfoList).map((archetype, list) =>{
-      console.log("CreateCards archetype",archetype )
+      //console.log("CreateCards archetype",archetype )
 			return dpCardsInfoList[archetype].map((cardInfo) =>(
-				<CreateCard cardInfo = {cardInfo} activeDp={activeDp} setActiveDp={setActiveDp}
+				<CreateCard cardInfo = {cardInfo} activeDp={activeDp} setActiveDPId={setActiveDPId}
         activeView={activeView} setActiveView={setActiveView} key={cardInfo['Id']}/>
 			))
 		})
@@ -70,9 +71,9 @@ const DPCardsView = (props) => {
   function makeGroupedCardList(){
     var cardInfoList = []
     const catagories = getCategories()
-    console.log("makeGroupedCardList   dpSearchList",dpSearchList)
+    //console.log("makeGroupedCardList   dpSearchList",dpSearchList)
     dpSearchList?.forEach(dp =>{ 
-      console.log("makeGroupedCardList   dp",dp)
+      //console.log("makeGroupedCardList   dp",dp)
      
       var cardInfo = {
                       "Id":dp["Id"],
@@ -95,6 +96,15 @@ const DPCardsView = (props) => {
       if ( checked.findIndex( check => check == index) == -1){
         return
       }
+      //console.log("dp ID", dp['Id'] )
+        //console.log("deleteID ID", deleteID )
+      if (dp['Id'] === deleteID)
+      {
+        //console.log("dp ID", dp['Id'] )
+        //console.log("deleteID ID", deleteID )
+        return;
+      }
+     
      
       var cardInfo = {
                       "Id":dp["Id"],
@@ -110,11 +120,11 @@ const DPCardsView = (props) => {
         cardInfoList[dp["Archetype"]] = [cardInfo]
       }
     })
-    console.log("makeGroupedCardList cardInfoList", cardInfoList)
+    //console.log("makeGroupedCardList cardInfoList", cardInfoList)
 		setDpCardsInfoList(cardInfoList)
   }
   useEffect(() => {
-    
+
     makeGroupedCardList()
   }, [checked]);
 
@@ -130,12 +140,12 @@ const DPCardsView = (props) => {
                     }
                     cardsInfoList.push(cardInfo)
     })
-    console.log("makeCardList cardsInfoList",cardsInfoList )
+    //console.log("makeCardList cardsInfoList",cardsInfoList )
     
 		setCardsInfoList(cardsInfoList)
   }
   useEffect(() => {
-    console.log("useeffect dpSearchList",dpSearchList )
+    //console.log("useeffect dpSearchList",dpSearchList )
     makeGroupedCardList()
   }, [dpSearchList]);
 	//useEffect(() => {

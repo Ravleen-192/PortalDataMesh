@@ -1,5 +1,5 @@
 .template {
-  width: 100%;
+ 
   height: auto;
   display: flex;
   justify-content: center;
@@ -10,6 +10,12 @@
   font-family: sans-serif;
   color:grey;
   font-size: 30px;
+  width: 500px;
+  margin-bottom: 15px;
+  margin-left: 80px;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
 }
 
 .templateList {

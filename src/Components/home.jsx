@@ -63,10 +63,11 @@ const Home = (props) => {
       .then((user) => {
         console.log("1", user);
         props.setUser(user);
+        props.setOnLoad(true);
        
         navigate("/dataproducts")
+        
        
-        props.setOnLoad(true);
       })
       .then(() => {
         navigate("/dataproducts")

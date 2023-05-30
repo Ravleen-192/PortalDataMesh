@@ -28,7 +28,7 @@ import { ChurnAnalysisPopOver } from './PopOverBoxes';
 
 const DPCard = (props) => {
   const activeDp = props.activeDp
-  const setActiveDp = props.setActiveDp
+  const setActiveDPId = props.setActiveDPId
   const activeView = props.activeView
   const setActiveView = props.setActiveView
   const [isFlipped, setIsflipped] = useState('false')
@@ -71,7 +71,7 @@ const DPCard = (props) => {
   /* for more details properties */
   function handleClickMoreDetailsDlg(id) {
     console.log("clicked more detail ", id)
-    setActiveDp(id)
+    setActiveDPId(id)
   };
 
   /* render right popover dialog */

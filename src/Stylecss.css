@@ -1152,7 +1152,7 @@ margin-right: 0px;
 .dpservicepage .dptemplateview .form .fields .field{
   width: 500px;
   margin-bottom: 15px;
-  margin-left: 10px;
+  margin-left: 80px;
   align-items: left;
   justify-content: left;
   text-align: left;
@@ -1160,7 +1160,7 @@ margin-right: 0px;
 .dpservicepage .dptemplateview .form .fields .title{
   width: 500px;
   margin-bottom: 15px;
-  margin-left: 10px;
+  margin-left: 80px;
   align-items: left;
   justify-content: left;
   text-align: left;
@@ -1182,7 +1182,21 @@ margin-right: 0px;
 }
  .dppublishpage{
   height: calc(100vh - 48px - 4px);
-  width: calc(100% - 6px);
+  width: 100%;/*calc(100% - 6px);*/
+  display: flex;
+  flex-direction: row;
+  margin-left: 3px;
+  margin-top: 3px;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  position:relative;
+  box-shadow: 0px 0px 10px 0px #888888;
+  position: fixed;
+  background-color: rgb(222, 222, 222);
+ }
+ .dpeditpage{
+  height: calc(100vh - 48px - 4px);
+  width: 80%;/*calc(100% - 6px);*/
   display: flex;
   flex-direction: row;
   margin-left: 3px;
@@ -1199,7 +1213,7 @@ margin-right: 0px;
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 20%;
+  width: 30%;
   min-width: 200px;
   background-color: white;
   color: black;
@@ -1256,8 +1270,84 @@ margin-right: 0px;
   align-self: center;
   color: #ff3300;
 }
+/*...............*/
+.dpeditpage .dplist{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 30%;
+  min-width: 200px;
+  background-color: white;
+  color: black;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: 0px;
+  margin-right: 3px;
+}
+
+.dpeditpage .dplist .items{
+  overflow: auto;
+  width: 100%;
+ }
+
+ .dpeditpage .dplist .item{
+  width: 100%;
+  color: rgb(26, 26, 26);
+  font-size: 30px;
+  background-color: white;
+  height:40px;
+  margin: 0px;
+  padding: 0px;
+ }
+
+ .dpeditpage .dplist .itemactive{
+  width: 100%;
+  color: rgb(26, 26, 26);
+  font-size: 30px;
+  background-color: darkgray;
+  height:40px;
+  margin: 0px;
+  padding: 0px;
+ }
+
+.dpeditpage .dplist .item:hover{
+  color:black;
+  background-color :rgb(203,203,203);
+}
+
+.dpeditpage .dplist .title{
+  text-align: left;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+}
+.dpeditpage .dplist .error{
+  text-align: left;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  color: #ff3300;
+}
+/*.....................*/
 
 .dppublishpage .dppublishview{
+  height: 100%;
+  width: 100%;
+  min-width: 160px;
+  background-color: white;
+  color: black;
+  overflow: auto;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+.dpeditpage .dpeditview{
   height: 100%;
   width: 100%;
   min-width: 160px;
@@ -1344,6 +1434,81 @@ margin-right: 0px;
   justify-content: left;
   align-items: left;
 }
+/*.....................*/
+.dppublishpage .dpeditview .title{
+  font-weight:bold;
+  font-size:16px;
+  padding-left:3px;
+  padding-bottom:3px;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top:0px;
+  padding-top: 4px;
+  margin-bottom:5px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  min-height: 25px;
+}
+.dpeditpage .dpeditview .closeicon{
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+.dpeditpage .dpeditview .form{
+  display: flex;
+  width:50%;
+  flex-direction: column;
+  justify-content: top;
+  align-items: left;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.dpeditpage .dpeditview .form .fields{
+  display: flex;
+  flex-direction: column;
+}
+
+.dpeditpage .dpeditview .form .fields .field{
+  margin-bottom: 15px;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+  width:100%;
+}
+.dpeditpage .dpeditview .form .fields .pii{
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.dpeditpage .dpeditview .form .button{
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.dpeditpage .dpeditview .button{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  justify-self: center;  
+}
+.dpeditpage .stats{
+  height: 100%;
+  width: 20%;
+  min-width: 160px;
+  background-color: white;
+  color: black;
+  overflow: auto;
+  margin-left: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+/*......................*/
 .dppublishtableview{
   height: 260px ;
   width: 100%;
@@ -1382,7 +1547,7 @@ margin-right: 0px;
 }
 
 .dppublishpreviewtableview{
-  height: 260px ;
+  height: 290px ;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1424,7 +1589,13 @@ margin-right: 0px;
   flex-direction: column;
   margin-right: 15px;
 }
-
+.dpeditdata{
+  width:70%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
 
 .dpview{
   height: 100%;
